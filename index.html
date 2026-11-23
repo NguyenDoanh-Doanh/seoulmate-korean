@@ -11,7 +11,7 @@
 .word-chip{font-size:14px}.word-chip span{display:block;font-size:12px;font-weight:400}
 </style></head><body><div class="app"><aside class="sidebar"><div class="brand">seoul<span>mate.</span> <span style="font-size:14px">♡</span></div><div class="smalllabel">GÓC HỌC TẬP</div><button class="nav active" data-tab="home"><span class="ico">⌂</span> Trang chủ</button><button class="nav" data-tab="speaking"><span class="ico">🎙️</span> Phòng luyện nói</button><button class="nav" data-tab="drama"><span class="ico">🎬</span> Vòng quay K-drama</button><button class="nav" data-tab="vocab"><span class="ico">📖</span> Sổ từ vựng</button><button class="nav" data-tab="review"><span class="ico">✿</span> Ôn tập Chủ nhật</button><div class="sidebottom"><strong>🌷 Cách học của bạn</strong><br>Nhẹ nhàng · Nói tiếng Hàn chậm<br>Sửa lỗi và nhắc lại<br>Ưu tiên phim Hàn lãng mạn ♡</div></aside><main class="main"><div class="top"><div><div class="eyebrow">Một chút tiếng Hàn mỗi ngày ✦</div><h1 class="hello">안녕, Sophie! <span style="color:#e3a6bb">♡</span></h1><div class="sub">Học tiếng Hàn qua từng cuộc trò chuyện.</div></div><div class="avatar">🌸</div></div>
 <section id="home" class="section active"><div class="hero"><div><span class="pill">Góc học tiếng Hàn của bạn</span><h2>Tập nói tiếng Hàn mỗi ngày</h2><p>Hội thoại đời thường và những cảnh phim Hàn lãng mạn.<br>Luyện tập theo nhịp của bạn.</p></div><div class="hero-emoji">🎧</div></div><div class="stats"><div class="stat"><div class="num" id="homeWords">0</div><div class="statname">Từ đã lưu</div></div><div class="stat"><div class="num" id="homePractices">0</div><div class="statname">Lượt trả lời</div></div><div class="stat"><div class="num">CN 22:00</div><div class="statname">Giờ ôn tập</div></div></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Cùng trò chuyện một chút nhé?</h3><div class="desc">Luyện phản xạ bằng tiếng Hàn.</div></div><span style="font-size:27px">💬</span></div><div style="background:#fbf4f7;padding:20px;border-radius:14px;margin:17px 0;font-size:19px;font-weight:800">오늘 하루 어땠어요?</div><div class="desc">Hôm nay bạn thế nào? Hãy thử trả lời bằng tiếng Hàn.</div><button class="primary" style="margin-top:16px" onclick="switchTab('speaking')">Vào phòng luyện nói</button></div><div class="panel"><h3>Cảnh phim hôm nay</h3><div class="desc" style="margin-bottom:12px">Mỗi lượt một cảnh phim ✨</div><div class="dramacard"><div class="dramatag">♡ Phim Hàn lãng mạn</div><div class="dramatitle" id="homeDrama">Lovely Runner</div><div class="dramasub">Clip chính thức · YouTube</div></div><button class="secondary" style="margin-top:13px;width:100%" onclick="switchTab('drama')">Mở vòng quay K-drama</button></div></div></section>
-<section id="speaking" class="section"><div class="hero" style="min-height:150px"><div><span class="pill">Phòng luyện nói</span><h2>Cùng nói tiếng Hàn ♡</h2><p>Nghe, trả lời tự nhiên và tiếp tục hội thoại.</p></div><div class="hero-emoji">🎙️</div></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Luyện hội thoại</h3><div class="desc">Sơ cấp · Nói chậm · Tiếng Hàn đời thường</div></div><button class="tiny" onclick="resetChat()">Luyện lại</button></div><div class="dramarow" style="align-items:center;gap:10px;margin:12px 0"><button class="primary" id="liveToggle" onclick="toggleLivePractice()" style="min-width:170px">🎙️ Bắt đầu luyện nói</button><button class="secondary" id="aiVoiceToggle" onclick="toggleAiVoice()" hidden>Luyện nói với giọng AI OpenAI</button><span class="helper" id="openAiVoiceLabel" hidden>Giọng đọc do AI OpenAI tạo</span><span id="liveStatus" role="status" aria-live="polite" style="font-size:13px;color:#8d79b1">Sẵn sàng · Mic đang tắt</span></div><div class="notice role-context" id="dramaRole" hidden>
+<section id="speaking" class="section"><div class="hero" style="min-height:150px"><div><span class="pill">Phòng luyện nói</span><h2>Cùng nói tiếng Hàn ♡</h2><p>Nghe, trả lời tự nhiên và tiếp tục hội thoại.</p></div><div class="hero-emoji">🎙️</div></div><div class="panel" id="tutorSettings" style="margin-top:16px"><h3>Gia sư AI Hàn–Việt</h3><div class="dramarow"><label>Giọng đọc<select class="field" id="voiceStyle"><option value="default">Giọng có sẵn</option><option value="F1">Giọng AI nữ</option><option value="M1">Giọng AI nam</option></select></label><label>Phong cách<select class="field" id="tutorStyle"><option value="Nhẹ nhàng">Nhẹ nhàng</option><option value="Nghiêm túc">Nghiêm túc</option><option value="Khắc nghiệt">Khắc nghiệt</option><option value="Cợt nhả">Cợt nhả</option><option value="Kiên nhẫn">Kiên nhẫn</option></select></label><label>Trình độ<select class="field" id="tutorLevel"><option value="1">TOPIK 1</option><option value="2">TOPIK 2</option><option value="3">TOPIK 3</option></select></label><label>Ngôn ngữ bạn nói<select class="field" id="micLang"><option value="ko-KR">Tiếng Hàn</option><option value="vi-VN">Tiếng Việt</option></select></label></div><p class="helper">Lần đầu mở gia sư, trình duyệt tải mô hình hội thoại và giọng đọc. Cần WebGPU, bộ nhớ trống và kết nối ổn định.</p><button id="localTutor" class="primary" onclick="startTutor()">Trò chuyện với gia sư AI</button> <button class="secondary" onclick="speak('안녕하세요!')">Nghe thử giọng</button></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Luyện hội thoại</h3><div class="desc">Sơ cấp · Nói chậm · Tiếng Hàn đời thường</div></div><button class="tiny" onclick="resetChat()">Luyện lại</button></div><div class="dramarow" style="align-items:center;gap:10px;margin:12px 0"><button class="primary" id="liveToggle" onclick="toggleLivePractice()" style="min-width:170px">🎙️ Bắt đầu luyện nói</button><button class="secondary" id="aiVoiceToggle" onclick="toggleAiVoice()" hidden>Luyện nói với giọng AI OpenAI</button><span class="helper" id="openAiVoiceLabel" hidden>Giọng đọc do AI OpenAI tạo</span><span id="liveStatus" role="status" aria-live="polite" style="font-size:13px;color:#8d79b1">Sẵn sàng · Mic đang tắt</span></div><div class="notice role-context" id="dramaRole" hidden>
 <p id="dramaRoleContext"></p><button class="tiny" onclick="leaveDramaRoleplay()">Về bài luyện giao tiếp</button>
 </div><div class="chat" id="chat"></div><div class="controls"><button class="round" id="mic" onclick="recordSpeech()" title="Dùng mic">🎤</button><input class="field" id="reply" placeholder="Nói hoặc nhập tiếng Hàn…" onkeydown="if(event.key==='Enter')sendReply()"><button class="primary" onclick="sendReply()">Gửi</button></div><div class="dramarow"><button class="secondary" onclick="playLast()">🔊 Nghe chậm</button><button class="secondary" onclick="explainLast()">📖 Giải thích từng từ</button><button class="secondary" onclick="repeatPrompt()">🔁 Nghe lại</button></div><div class="feedback" id="feedback"></div><div class="helper">Chế độ luyện nói dùng mic và giọng đọc của trình duyệt. Các lượt nhập vai theo kịch bản và kiểm tra mẫu câu cơ bản.</div></div><div class="panel"><h3>Cách luyện nói 🌷</h3><p class="desc">Nghe từng câu hỏi, trả lời, rồi tập nói lại theo gợi ý khi cần.</p><div class="explainbox"><strong>Mẫu câu hôm nay</strong><p style="font:800 19px Nunito;margin:12px 0 5px">저는 ___예요 / 이에요.</p><div class="desc">“Tôi là ___.” Dùng 예요 sau nguyên âm và 이에요 sau phụ âm.</div></div><h3 style="margin-top:25px">Tốc độ nói</h3><div class="desc">Chậm hơn tốc độ tự nhiên</div><input id="speed" type="range" min="0.65" max="1" value="0.82" step="0.01" style="width:100%;accent-color:#d985aa;margin-top:15px"><div class="helper">Giọng đọc phụ thuộc vào giọng tiếng Hàn có sẵn trên thiết bị.</div></div></div></section>
 <section id="drama" class="section">
@@ -77,6 +77,7 @@
 </section>
 <section id="review" class="section"><div class="hero" style="min-height:155px"><div><span class="pill">Ôn tập cuối tuần</span><h2>Ôn tiếng Hàn lúc 22:00 🌙</h2><p>Thử nhớ nghĩa trước khi xem đáp án.</p></div><div class="hero-emoji">🌙</div></div><div class="grid"><div class="panel"><h3>Ôn nhanh từ vựng</h3><div class="desc">Từ này có nghĩa gì trong tiếng Việt?</div><div id="reviewWord" class="reviewword">안녕하세요</div><div id="reviewAnswer" class="reviewanswer">Bấm Xem nghĩa để kiểm tra.</div><div class="dramarow"><button class="primary" onclick="revealReview()">Xem nghĩa</button><button class="secondary" onclick="nextReview()">Từ tiếp theo</button><button class="secondary" onclick="speak(document.getElementById('reviewWord').textContent)">🔊 Listen</button></div><div class="helper" id="reviewProgress"></div></div><div class="panel"><h3>Các bước ôn tập</h3><div class="desc">Chủ nhật · 22:00 · Giờ Việt Nam</div><div class="explainbox" style="font-size:13px;line-height:2.1">① Nhìn từ tiếng Hàn<br>② Nói nghĩa tiếng Việt thành tiếng<br>③ Lặp lại cách phát âm<br>④ Đặt câu của riêng bạn</div><div class="notice" style="margin-top:15px">Lịch nhắc ôn tập được quản lý trong ChatGPT.</div></div></div></section>
 <div class="footer">Góc học tiếng Hàn của Sophie ♡</div></main></div><div class="mobileNav"><button onclick="switchTab('home')"><span>⌂</span>Trang chủ</button><button onclick="switchTab('speaking')"><span>🎙️</span>Luyện nói</button><button onclick="switchTab('drama')"><span>🎬</span>Phim Hàn</button><button onclick="switchTab('vocab')"><span>📖</span>Từ vựng</button><button onclick="switchTab('review')"><span>🌙</span>Ôn tập</button></div>
+<script type="importmap">{"imports":{"onnxruntime-web":"https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.mjs"}}</script>
 <script src="vocab-audio.js"></script>
 <script src="dialogue-audio.js"></script>
 <script>
@@ -93,6 +94,7 @@ let pronunciationRequest = 0;
 let pronunciationUtterance;
 let pronunciationAudio;
 function speak(text, status = null){
+  if(setting("voiceStyle")!=="default")return readSelectedVoice(text,status);
   const request = ++pronunciationRequest;
   const report = message => {
     if (request === pronunciationRequest && status) status.textContent = message;
@@ -625,6 +627,7 @@ if (location.hostname === '127.0.0.1') {
 function playVocabularyWord(index){
   const word = words[index].kr;
   const status = document.getElementById('vocabAudioStatus');
+  if(setting('voiceStyle')!=='default')return readSelectedVoice(word,status);
   const clips = window.seoulmateVocabAudio;
   const clip = clips?.[word] || clips?.[word.replace(/[.!?…]+$/, '')];
   const audio = document.getElementById('vocabAudio');
@@ -667,7 +670,7 @@ let liveActive=false,liveRecognizer=null,liveSpeaking=false,liveWaiting=false,li
 function liveStatus(text){const el=document.getElementById('liveStatus');if(el)el.textContent=text;}
 function liveButton(){const el=document.getElementById('liveToggle');if(el)el.textContent=liveActive?'■ Kết thúc luyện nói':'🎙️ Bắt đầu luyện nói';}
 function stopMic(){if(liveRecognizer){const old=liveRecognizer;liveRecognizer=null;old.onend=null;old.onerror=null;old.onresult=null;try{old.abort()}catch(e){}}}
-function stopLivePractice(){if(liveActive)pronunciationAudio?.pause();liveActive=false;liveEpoch++;liveSpeaking=false;liveWaiting=false;clearTimeout(liveRetryTimer);stopMic();if('speechSynthesis'in window)speechSynthesis.cancel();liveStatus('Đã dừng · Mic đang tắt');liveButton();}
+function stopLivePractice(){tutorRunning=false;interruptVoice();document.getElementById("localTutor").textContent="Trò chuyện với gia sư AI";if(liveActive)pronunciationAudio?.pause();liveActive=false;liveEpoch++;liveSpeaking=false;liveWaiting=false;clearTimeout(liveRetryTimer);stopMic();if('speechSynthesis'in window)speechSynthesis.cancel();liveStatus('Đã dừng · Mic đang tắt');liveButton();}
 function toggleLivePractice(){stopAiVoice();if(liveActive){stopLivePractice();return}const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){liveStatus('Hãy mở bằng Chrome và cho phép dùng mic để luyện nói.');return}liveActive=true;liveEpoch++;liveButton();const epoch=liveEpoch;stopMic();liveTalk(dramaRole ? current().q : '안녕하세요! 천천히 이야기해요. '+current().q,epoch);}
 function liveTalk(message, epoch){
   if (!liveActive || epoch !== liveEpoch) return;
@@ -676,6 +679,13 @@ function liveTalk(message, epoch){
   liveWaiting = false;
   liveStatus('Đang nói · Hãy lắng nghe');
   const line = message.replace(/^(안녕하세요! 천천히 이야기해요\. |좋아요! |괜찮아요\. 다시 한 번 따라 해 보세요\. )/, '');
+  if(setting('voiceStyle')!=='default'){
+    const valid=()=>liveActive && epoch===liveEpoch;
+    unlockVoice().then(()=>voiceLine(line,'ko',setting('voiceStyle'),valid,liveStatus))
+      .then(()=>{if(valid()){liveSpeaking=false;listenLive(epoch);}})
+      .catch(()=>{if(valid()){stopLivePractice();liveStatus('Chưa tải được giọng AI. Hãy thử lại.');}});
+    return;
+  }
   const clip = window.seoulmateDialogueAudio?.[line];
   if (!clip) {
     liveSpeaking = false;
@@ -699,9 +709,9 @@ function liveTalk(message, epoch){
     liveStatus('Không phát được câu thoại. Hãy bấm bắt đầu để thử lại.');
   });
 }
-function listenLive(epoch){if(!liveActive||epoch!==liveEpoch||liveSpeaking)return;const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){stopLivePractice();return}stopMic();const r=new R();liveRecognizer=r;r.lang='ko-KR';r.interimResults=false;r.continuous=false;r.maxAlternatives=1;liveWaiting=true;liveStatus('Đang nghe · Hãy trả lời bằng tiếng Hàn');r.onresult=e=>{if(!liveActive||epoch!==liveEpoch||r!==liveRecognizer)return;let transcript=e.results?.[0]?.[0]?.transcript?.trim();if(!transcript)return;liveWaiting=false;stopMic();document.getElementById('reply').value=transcript;sendReply();};r.onerror=e=>{if(!liveActive||epoch!==liveEpoch)return;if(e.error==='not-allowed'||e.error==='service-not-allowed'){stopLivePractice();liveStatus('Bạn cần cho phép dùng mic.');return}if(e.error==='no-speech'||e.error==='aborted')return;liveStatus('Mic bị gián đoạn · Đang thử lại');};r.onend=()=>{if(!liveActive||epoch!==liveEpoch||r!==liveRecognizer||!liveWaiting||liveSpeaking)return;liveRecognizer=null;clearTimeout(liveRetryTimer);liveRetryTimer=setTimeout(()=>listenLive(epoch),350)};try{r.start()}catch(e){stopLivePractice();liveStatus('Không mở được mic. Hãy kiểm tra quyền truy cập.')}}
+function listenLive(epoch){if(!liveActive||epoch!==liveEpoch||liveSpeaking)return;const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){stopLivePractice();return}stopMic();const r=new R();liveRecognizer=r;r.lang=tutorRunning?setting('micLang'):'ko-KR';r.interimResults=false;r.continuous=false;r.maxAlternatives=1;liveWaiting=true;liveStatus('Đang nghe · Hãy trả lời bằng tiếng Hàn');r.onresult=e=>{if(!liveActive||epoch!==liveEpoch||r!==liveRecognizer)return;let transcript=e.results?.[0]?.[0]?.transcript?.trim();if(!transcript)return;liveWaiting=false;stopMic();document.getElementById('reply').value=transcript;sendReply();};r.onerror=e=>{if(!liveActive||epoch!==liveEpoch)return;if(e.error==='not-allowed'||e.error==='service-not-allowed'){stopLivePractice();liveStatus('Bạn cần cho phép dùng mic.');return}if(e.error==='no-speech'||e.error==='aborted')return;liveStatus('Mic bị gián đoạn · Đang thử lại');};r.onend=()=>{if(!liveActive||epoch!==liveEpoch||r!==liveRecognizer||!liveWaiting||liveSpeaking)return;liveRecognizer=null;clearTimeout(liveRetryTimer);liveRetryTimer=setTimeout(()=>listenLive(epoch),350)};try{r.start()}catch(e){stopLivePractice();liveStatus('Không mở được mic. Hãy kiểm tra quyền truy cập.')}}
 const originalSendReply=sendReply;
-sendReply=function(){const input=document.getElementById('reply');if(!input.value.trim())return;const before=chatStep;const previousPrompt=current();const epoch=liveEpoch;originalSendReply();if(!liveActive||epoch!==liveEpoch)return;const changed=chatStep!==before;const p=previousPrompt;clearTimeout(liveRetryTimer);liveRetryTimer=setTimeout(()=>{if(!liveActive||epoch!==liveEpoch)return;const line=changed?'좋아요! '+current().q:'괜찮아요. 다시 한 번 따라 해 보세요. '+p.hint.replace(/\s*\([^)]*\)/g,'').split(' / ')[0];liveTalk(line,epoch)},500);};
+sendReply=function(){if(tutorRunning){const box=document.getElementById('reply');const answer=box.value.trim();if(answer&&!tutorBusy){box.value='';addBubble('Sophie',answer);tutorReply(answer,liveEpoch);}return;}const input=document.getElementById('reply');if(!input.value.trim())return;const before=chatStep;const previousPrompt=current();const epoch=liveEpoch;originalSendReply();if(!liveActive||epoch!==liveEpoch)return;const changed=chatStep!==before;const p=previousPrompt;clearTimeout(liveRetryTimer);liveRetryTimer=setTimeout(()=>{if(!liveActive||epoch!==liveEpoch)return;const line=changed?'좋아요! '+current().q:'괜찮아요. 다시 한 번 따라 해 보세요. '+p.hint.replace(/\s*\([^)]*\)/g,'').split(' / ')[0];liveTalk(line,epoch)},500);};
 const originalResetChat=resetChat;
 resetChat=function(){stopAiVoice();stopLivePractice();originalResetChat()};
 const originalSwitchTab=switchTab;
@@ -709,4 +719,126 @@ switchTab=function(t){if(t!=='speaking'){stopAiVoice();if(liveActive)stopLivePra
 window.speechSynthesis?.getVoices();
 window.addEventListener('pagehide',()=>{stopSentenceCheck();stopAiVoice();stopDramaCaptions();if(liveActive)stopLivePractice()});
 
+const lessonSeeds = {
+  '1': [['얼마예요?', 'Bao nhiêu tiền?'], ['같이 갈까요?', 'Mình đi cùng nhau nhé?'], ['다시 말해 주세요.', 'Hãy nói lại giúp mình.']],
+  '2': [['가 본 적이 있어요.', 'Mình đã từng đến đó.'], ['예약하고 싶어요.', 'Mình muốn đặt chỗ.'], ['어떻게 가면 돼요?', 'Mình đi thế nào để tới đó?']],
+  '3': [['제 생각에는', 'Theo mình thì…'], ['그럴 수도 있어요.', 'Cũng có thể như vậy.'], ['시간이 되는 대로', 'Ngay khi có thời gian…']]
+};
+const tutorSettings = document.getElementById('tutorSettings');
+for (const select of tutorSettings.querySelectorAll('select')) {
+  const value = localStorage.getItem('seoulmate-'+select.id);
+  if ([...select.options].some(option=>option.value===value)) select.value=value;
+  select.onchange=()=>{localStorage.setItem('seoulmate-'+select.id,select.value);};
+}
+const setting = id => document.getElementById(id).value;
+const voiceRoot = 'https://huggingface.co/Supertone/supertonic-3/resolve/3cadd1ee6394adea1bd021217a0e650ede09a323';
+let voiceReady, tutorEngine, tutorRunning=false, tutorBusy=false, audioContext, voiceSource;
+let voiceJob=0, tutorHistory=[], tutorTurn=0;
+const profiles = new Map();
+function unlockVoice(){
+  audioContext ||= new AudioContext();
+  return audioContext.resume();
+}
+function interruptVoice(){
+  voiceJob++;
+  if (voiceSource) {try {voiceSource.stop();} catch {} voiceSource=null;}
+}
+async function voiceLine(text, lang, profile, valid, notify){
+  if (!text.trim()) return;
+  if (!voiceReady) {
+    notify('Đang tải bộ giọng AI vào trình duyệt…');
+    voiceReady=(async()=>{
+      const helper=await import('https://cdn.jsdelivr.net/gh/supertone-inc/supertonic@1e9799e964ea4c0dad7cde993b65c3c813a7b373/web/helper.js');
+      const ort=await import('onnxruntime-web');
+      ort.env.wasm.numThreads=1;
+      ort.env.wasm.wasmPaths='https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/';
+      const {textToSpeech}=await helper.loadTextToSpeech(voiceRoot+'/onnx',{executionProviders:['wasm']});
+      return {helper,textToSpeech};
+    })().catch(error=>{voiceReady=null;throw error;});
+  }
+  const {helper,textToSpeech}=await voiceReady;
+  if (!valid()) return;
+  if (!profiles.has(profile)) profiles.set(profile,await helper.loadVoiceStyle([voiceRoot+'/voice_styles/'+profile+'.json']));
+  if (!valid()) return;
+  notify('Đang tạo giọng đọc…');
+  const {wav,duration}=await textToSpeech.call(text,lang,profiles.get(profile),5,Number(setting('speed')));
+  if (!valid()) return;
+  const buffer=audioContext.createBuffer(1,Math.min(wav.length,Math.ceil(duration[0]*textToSpeech.sampleRate)),textToSpeech.sampleRate);
+  buffer.copyToChannel(Float32Array.from(wav.slice(0,buffer.length)),0);
+  const source=audioContext.createBufferSource();
+  voiceSource=source;
+  source.buffer=buffer;
+  source.connect(audioContext.destination);
+  notify('Đang đọc…');
+  await new Promise(resolve=>{source.onended=resolve;source.start();});
+}
+function readSelectedVoice(text, status){
+  const notify=message=>{(status || document.getElementById('liveStatus')).textContent=message;};
+  interruptVoice();
+  const job=voiceJob;
+  pronunciationAudio?.pause();
+  window.speechSynthesis?.cancel();
+  unlockVoice().then(()=>voiceLine(text,'ko',setting('voiceStyle'),()=>job===voiceJob,notify))
+    .then(()=>{if(job===voiceJob)notify('Đã đọc xong.');})
+    .catch(()=>notify('Chưa tải hoặc phát được giọng AI. Có thể chọn lại giọng có sẵn trong Phòng luyện nói.'));
+}
+async function startTutor(){
+  if (tutorRunning){stopLivePractice();return;}
+  stopAiVoice();
+  stopLivePractice();
+  tutorRunning=true;
+  liveActive=true;
+  const epoch=++liveEpoch;
+  tutorHistory=[];tutorTurn=0;tutorBusy=false;
+  document.getElementById('localTutor').textContent='Dừng gia sư AI';
+  try {
+    await unlockVoice();
+    if (!navigator.gpu || !await navigator.gpu.requestAdapter()) throw Error('WebGPU');
+    if (!tutorEngine) {
+      liveStatus('Đang tải mô hình hội thoại. Lần đầu cần tải hơn 1 GB.');
+      const {CreateMLCEngine}=await import('https://esm.run/@mlc-ai/web-llm@0.2.79');
+      tutorEngine ||= CreateMLCEngine('Qwen2.5-1.5B-Instruct-q4f16_1-MLC',{
+        initProgressCallback:report=>{if(tutorRunning)liveStatus(report.text);}
+      }).catch(error=>{tutorEngine=null;throw error;});
+    }
+    await tutorEngine;
+    if (tutorRunning && epoch===liveEpoch) await tutorReply('Bắt đầu buổi học.',epoch);
+  }catch(error){
+    if (epoch!==liveEpoch)return;
+    stopLivePractice();
+    liveStatus(error.message==='WebGPU'?'Gia sư AI cần trình duyệt và thiết bị hỗ trợ WebGPU.':'Chưa khởi động được mô hình. Hãy kiểm tra kết nối, bộ nhớ và WebGPU rồi thử lại.');
+  }
+}
+async function tutorReply(input,epoch){
+  if (tutorBusy) return;
+  tutorBusy=true;stopMic();
+  const valid=()=>tutorRunning && liveEpoch===epoch;
+  const level=setting('tutorLevel');
+  const [phrase,meaning]=lessonSeeds[level][Math.floor(tutorTurn/3)%lessonSeeds[level].length];
+  const prompt='Teach a Vietnamese learner conversational Korean. Level TOPIK '+level+'. Teaching style in Vietnamese: '+setting('tutorStyle')+'. Be respectful. Reply to the last utterance, correct meaningful errors and invite repetition. Teach one useful phrase proactively every three turns. This lesson target: '+phrase+' ('+meaning+'). '+(dramaRole?'Role-play: '+dramaRole.role:'')+' Return a JSON object with two short strings: ko (natural Korean question or model), vi (Vietnamese explanation).';
+  try{
+    liveStatus('Gia sư đang trả lời…');
+    tutorHistory.push({role:'user',content:input});
+    const engine=await tutorEngine;
+    const result=await engine.chat.completions.create({messages:[{role:'system',content:prompt},...tutorHistory.slice(-9)],response_format:{type:'json_object'},max_tokens:220});
+    if(!valid())return;
+    const raw=result.choices[0].message.content;
+    const {ko,vi}=JSON.parse(raw);
+    if(typeof ko!=='string'||typeof vi!=='string')throw Error('format');
+    tutorHistory.push({role:'assistant',content:raw});
+    if(tutorTurn++%3===0){
+      addBubble('Cụm từ mới',phrase+' — '+meaning);
+      if(!words.some(w=>w.kr===phrase)){words.push({kr:phrase,en:meaning});save();}
+    }
+    addBubble('Gia sư AI',ko+'\n'+vi);
+    const profile=setting('voiceStyle')==='M1'?'M1':'F1';
+    await voiceLine(ko,'ko',profile,valid,liveStatus);
+    if(valid())await voiceLine(vi,'vi',profile,valid,liveStatus);
+  }catch{
+    if(valid())liveStatus('Gia sư gặp lỗi tạo câu hoặc tải giọng. Bạn vẫn có thể gõ để tiếp tục.');
+    return;
+  }finally{if(valid())tutorBusy=false;}
+  if(valid() && (window.SpeechRecognition||window.webkitSpeechRecognition))listenLive(epoch);
+  else if(valid())liveStatus('Nhập câu trả lời để tiếp tục.');
+}
 </script></body></html>
