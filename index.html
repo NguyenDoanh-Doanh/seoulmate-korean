@@ -59,6 +59,7 @@
 <section id="vocab" class="section"><div class="hero" style="min-height:145px"><div><span class="pill">Kho từ của bạn</span><h2>Từ vựng đã học 📖</h2><p>Các cụm từ đã lưu sẽ hiển thị trên trình duyệt này.</p></div><div class="hero-emoji">📚</div></div><div class="grid"><div class="panel"><div class="panelhead"><h3>Sổ từ vựng Hàn–Việt</h3><span id="vocabCount" class="counter"></span></div><p id="vocabAudioStatus" class="helper" role="status"></p><div id="wordList"></div></div><div class="panel"><h3>＋ Thêm từ của bạn</h3><div class="desc">Lưu cụm từ mới để ôn lại vào Chủ nhật.</div><label for="newKr">Tiếng Hàn</label><input lang="ko" class="field" id="newKr" placeholder="Từ hoặc cụm từ tiếng Hàn" style="margin-top:18px"><label for="newEn">Nghĩa tiếng Việt</label><input lang="vi" class="field" id="newEn" placeholder="Nghĩa tiếng Việt" style="margin-top:8px"><button class="primary" style="margin-top:12px" onclick="addCustomWord()">Lưu vào sổ</button><div class="notice" style="margin-top:20px">☁️ Sổ từ được lưu trên trình duyệt này. Bạn có thể xuất danh sách để mang sang thiết bị khác.</div><button class="secondary" style="margin-top:12px" onclick="exportVocab()">↓ Xuất từ vựng (.txt)</button></div></div></section>
 <section id="review" class="section"><div class="hero" style="min-height:155px"><div><span class="pill">Ôn tập cuối tuần</span><h2>Ôn tiếng Hàn lúc 22:00 🌙</h2><p>Thử nhớ nghĩa trước khi xem đáp án.</p></div><div class="hero-emoji">🌙</div></div><div class="grid"><div class="panel"><h3>Ôn nhanh từ vựng</h3><div class="desc">Từ này có nghĩa gì trong tiếng Việt?</div><div id="reviewWord" class="reviewword">안녕하세요</div><div id="reviewAnswer" class="reviewanswer">Bấm Xem nghĩa để kiểm tra.</div><div class="dramarow"><button class="primary" onclick="revealReview()">Xem nghĩa</button><button class="secondary" onclick="nextReview()">Từ tiếp theo</button><button class="secondary" onclick="speak(document.getElementById('reviewWord').textContent)">🔊 Listen</button></div><div class="helper" id="reviewProgress"></div></div><div class="panel"><h3>Các bước ôn tập</h3><div class="desc">Chủ nhật · 22:00 · Giờ Việt Nam</div><div class="explainbox" style="font-size:13px;line-height:2.1">① Nhìn từ tiếng Hàn<br>② Nói nghĩa tiếng Việt thành tiếng<br>③ Lặp lại cách phát âm<br>④ Đặt câu của riêng bạn</div><div class="notice" style="margin-top:15px">Lịch nhắc ôn tập được quản lý trong ChatGPT.</div></div></div></section>
 <div class="footer">Góc học tiếng Hàn của Sophie ♡</div></main></div><div class="mobileNav"><button onclick="switchTab('home')"><span>⌂</span>Trang chủ</button><button onclick="switchTab('speaking')"><span>🎙️</span>Luyện nói</button><button onclick="switchTab('drama')"><span>🎬</span>Phim Hàn</button><button onclick="switchTab('vocab')"><span>📖</span>Từ vựng</button><button onclick="switchTab('review')"><span>🌙</span>Ôn tập</button></div>
+<script src="vocab-audio.js"></script>
 <script>
 const baseWords=[{kr:'안녕하세요',en:'Xin chào (lịch sự)'},{kr:'저는',en:'Tôi (chủ đề)'},{kr:'소피예요',en:'Tôi là Sophie'},{kr:'베트남',en:'Việt Nam'},{kr:'사람',en:'Người'},{kr:'왔어요',en:'Đã đến'},{kr:'공부하러',en:'Để học'},{kr:'네',en:'Vâng'},{kr:'아니요',en:'Không'},{kr:'재미있어요',en:'Thú vị'},{kr:'어디',en:'Ở đâu'},{kr:'오늘',en:'Hôm nay'}];
 const legacyMeanings = [["안녕하세요", "Hello (polite)", "Xin chào (lịch sự)"], ["저는", "As for me / I", "Tôi (chủ đề)"], ["소피예요", "I am Sophie", "Tôi là Sophie"], ["베트남", "Vietnam", "Việt Nam"], ["사람", "Person", "Người"], ["왔어요", "Came", "Đã đến"], ["공부하러", "To study (purpose of coming)", "Để học"], ["네", "Yes", "Vâng"], ["아니요", "No", "Không"], ["재미있어요", "Is fun / interesting", "Thú vị"], ["어디", "Where", "Ở đâu"], ["오늘", "Today", "Hôm nay"], ["안녕하세요", "Hello", "Xin chào"], ["이름", "Name", "Tên"], ["이", "Subject marker", "Tiểu từ chủ ngữ"], ["뭐예요", "What is it?", "Là gì?"], ["어느", "Which", "Nào"], ["나라", "Country", "Quốc gia"], ["사람", "Person", "Người"], ["이에요", "Am / is", "Là"], ["오늘", "Today", "Hôm nay"], ["기분", "Mood / feelings", "Tâm trạng"], ["이", "Subject marker", "Tiểu từ chủ ngữ"], ["어때요", "How is it?", "Thế nào?"], ["한국어", "Korean language", "Tiếng Hàn"], ["공부", "Studying", "Việc học"], ["가", "Subject marker", "Tiểu từ chủ ngữ"], ["주말", "Weekend", "Cuối tuần"], ["에", "On / at", "Vào / ở"], ["뭐", "What", "Gì"], ["해요", "Do", "Làm"], ["오늘 뭐 해요?", "What are you doing today?", "Hôm nay bạn làm gì?"], ["정말 고마워요.", "Thank you so much.", "Cảm ơn bạn rất nhiều."], ["보고 싶었어요.", "I missed you.", "Mình nhớ bạn."], ["좋아해.", "I like you / I like it. (Casual)", "Mình thích cậu / Mình thích cái đó. (Thân mật)"], ["어디서 들었어?", "Where did you hear it? (Casual)", "Cậu nghe ở đâu vậy? (Thân mật)"]];
@@ -361,7 +362,29 @@ function leaveDramaRoleplay(){
   resetChat();
 }
 function escapeHTML(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}function renderWords(){let l=document.getElementById('wordList');l.innerHTML=words.length?words.map((w,i)=>'<div class="wordrow"><div><div class="wordkr" lang="ko">'+escapeHTML(w.kr)+'</div><div class="wordeng" lang="vi">'+escapeHTML(w.en)+'</div></div><div><button class="tiny" aria-label="Nghe phát âm" onclick="playVocabularyWord('+i+')">🔊</button> <button class="tiny" onclick="editMeaning('+i+')">Sửa nghĩa</button> <button class="tiny" onclick="removeWord('+i+')">×</button></div></div>').join(''):'<p class="desc">Sổ từ vựng đang trống.</p>';document.getElementById('vocabCount').textContent=words.length+' từ đã lưu'}function playVocabularyWord(index){
-  speak(words[index].kr, document.getElementById('vocabAudioStatus'));
+  const word = words[index].kr;
+  const status = document.getElementById('vocabAudioStatus');
+  const clips = window.seoulmateVocabAudio;
+  const clip = clips?.[word] || clips?.[word.replace(/[.!?…]+$/, '')];
+  if (!clip) {
+    speak(word, status);
+    return;
+  }
+  const request = ++pronunciationRequest;
+  window.speechSynthesis?.cancel();
+  pronunciationAudio?.pause();
+  const audio = new Audio('data:audio/mpeg;base64,' + clip);
+  pronunciationAudio = audio;
+  audio.playbackRate = Number(document.getElementById('speed').value) || 0.82;
+  status.textContent = 'Đang chuẩn bị phát: ' + word;
+  const report = message => {
+    if (request === pronunciationRequest) status.textContent = message;
+  };
+  audio.onplaying = () => report('Đang phát: ' + word);
+  audio.onended = () => report('');
+  const failed = () => report('Không phát được tệp âm thanh. Hãy thử bấm loa lại.');
+  audio.onerror = failed;
+  audio.play().catch(failed);
 }
 function editMeaning(index){
   const word = words[index];
