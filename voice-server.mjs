@@ -28,6 +28,52 @@ createServer(async (request, response) => {
       .end(JSON.stringify({available: Boolean(process.env.OPENAI_API_KEY)}));
     return;
   }
+  if (request.method === 'POST' && path === '/pronunciation') {
+    if (request.headers.origin !== origin || request.headers['content-type'] !== 'application/json') {
+      response.writeHead(403).end();
+      return;
+    }
+    const key = process.env.OPENAI_API_KEY;
+    if (!key) {
+      response.writeHead(503).end();
+      return;
+    }
+    try {
+      let body = '';
+      request.setEncoding('utf8');
+      for await (const part of request) {
+        body += part;
+        if (body.length > 4000) {
+          response.writeHead(413).end();
+          return;
+        }
+      }
+      const {text} = JSON.parse(body);
+      if (typeof text !== 'string' || text.length > 500 || !/[가-힣]/.test(text)) {
+        response.writeHead(400).end();
+        return;
+      }
+      const upstream = await fetch('https://api.openai.com/v1/audio/speech', {
+        method: 'POST',
+        headers: {Authorization: 'Bearer ' + key, 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          model: 'gpt-4o-mini-tts', voice: 'marin', input: text,
+          instructions: 'Read the Korean naturally and clearly at a slightly slow pace. Read only the supplied text.',
+          response_format: 'mp3'
+        }),
+        signal: AbortSignal.timeout(15000)
+      });
+      if (!upstream.ok) {
+        response.writeHead(502).end();
+        return;
+      }
+      const audio = Buffer.from(await upstream.arrayBuffer());
+      response.writeHead(200, {'Content-Type': 'audio/mpeg', 'Cache-Control': 'no-store'}).end(audio);
+    } catch {
+      response.writeHead(502).end();
+    }
+    return;
+  }
   if (request.method === 'POST' && path === '/voice-session') {
     if (request.headers.origin !== origin || request.headers['content-type'] !== 'application/sdp') {
       response.writeHead(403).end();
