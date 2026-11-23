@@ -60,7 +60,7 @@
     </div>
   </div>
 </section>
-<section id="vocab" class="section"><div class="hero" style="min-height:145px"><div><span class="pill">Kho từ của bạn</span><h2>Từ vựng đã học 📖</h2><p>Các cụm từ đã lưu sẽ hiển thị trên trình duyệt này.</p></div><div class="hero-emoji">📚</div></div><div class="grid"><div class="panel"><div class="panelhead"><h3>Sổ từ vựng Hàn–Việt</h3><span id="vocabCount" class="counter"></span></div><p id="vocabAudioStatus" class="helper" role="status"></p><div id="wordList"></div></div><div class="panel"><h3>＋ Thêm từ của bạn</h3><div class="desc">Lưu cụm từ mới để ôn lại vào Chủ nhật.</div><label for="newKr">Tiếng Hàn</label><input lang="ko" class="field" id="newKr" placeholder="Từ hoặc cụm từ tiếng Hàn" style="margin-top:18px"><label for="newEn">Nghĩa tiếng Việt</label><input lang="vi" class="field" id="newEn" placeholder="Nghĩa tiếng Việt" style="margin-top:8px"><button class="primary" style="margin-top:12px" onclick="addCustomWord()">Lưu vào sổ</button><div class="notice" style="margin-top:20px">☁️ Sổ từ được lưu trên trình duyệt này. Bạn có thể xuất danh sách để mang sang thiết bị khác.</div><button class="secondary" style="margin-top:12px" onclick="exportVocab()">↓ Xuất từ vựng (.txt)</button></div></div>
+<section id="vocab" class="section"><div class="hero" style="min-height:145px"><div><span class="pill">Kho từ của bạn</span><h2>Từ vựng đã học 📖</h2><p>Các cụm từ đã lưu sẽ hiển thị trên trình duyệt này.</p></div><div class="hero-emoji">📚</div></div><div class="grid"><div class="panel"><div class="panelhead"><h3>Sổ từ vựng Hàn–Việt</h3><span id="vocabCount" class="counter"></span></div><p id="vocabAudioStatus" class="helper" role="status"></p><audio id="vocabAudio" controls preload="none" aria-label="Trình phát phát âm tiếng Hàn" hidden></audio><div id="wordList"></div></div><div class="panel"><h3>＋ Thêm từ của bạn</h3><div class="desc">Lưu cụm từ mới để ôn lại vào Chủ nhật.</div><label for="newKr">Tiếng Hàn</label><input lang="ko" class="field" id="newKr" placeholder="Từ hoặc cụm từ tiếng Hàn" style="margin-top:18px"><label for="newEn">Nghĩa tiếng Việt</label><input lang="vi" class="field" id="newEn" placeholder="Nghĩa tiếng Việt" style="margin-top:8px"><button class="primary" style="margin-top:12px" onclick="addCustomWord()">Lưu vào sổ</button><div class="notice" style="margin-top:20px">☁️ Sổ từ được lưu trên trình duyệt này. Bạn có thể xuất danh sách để mang sang thiết bị khác.</div><button class="secondary" style="margin-top:12px" onclick="exportVocab()">↓ Xuất từ vựng (.txt)</button></div></div>
 <div class="panel sentence-panel">
   <h3>Ghép câu và luyện nói</h3>
   <p>Chọn từ đã lưu theo thứ tự bạn muốn. Bạn có thể sửa câu để thêm tiểu từ hoặc chia đuôi câu.</p>
@@ -627,14 +627,17 @@ function playVocabularyWord(index){
   const status = document.getElementById('vocabAudioStatus');
   const clips = window.seoulmateVocabAudio;
   const clip = clips?.[word] || clips?.[word.replace(/[.!?…]+$/, '')];
+  const audio = document.getElementById('vocabAudio');
   if (openAiVoiceAvailable || !clip) {
+    audio.hidden = true;
     speak(word, status);
     return;
   }
   const request = ++pronunciationRequest;
   window.speechSynthesis?.cancel();
   pronunciationAudio?.pause();
-  const audio = new Audio('data:audio/mpeg;base64,' + clip);
+  audio.hidden = false;
+  audio.src = 'data:audio/mpeg;base64,' + clip;
   pronunciationAudio = audio;
   audio.playbackRate = Number(document.getElementById('speed').value) || 0.82;
   status.textContent = 'Đang chuẩn bị phát: ' + word;
@@ -642,7 +645,7 @@ function playVocabularyWord(index){
     if (request === pronunciationRequest) status.textContent = message;
   };
   audio.onplaying = () => report('Đang phát: ' + word);
-  audio.onended = () => report('');
+  audio.onended = () => report('Đã phát: ' + word + ' · Có thể nghe lại trên trình phát.');
   const failed = () => report('Không phát được tệp âm thanh. Hãy thử bấm loa lại.');
   audio.onerror = failed;
   audio.play().catch(failed);
