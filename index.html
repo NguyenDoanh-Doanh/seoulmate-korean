@@ -48,12 +48,9 @@
       <button class="secondary" id="captionToggle" onclick="toggleDramaCaptions()">Bật phụ đề tự động</button>
       <p class="helper" id="captionStatus" role="status"></p>
       <div id="captionLines" class="caption-lines" role="log" aria-label="Phụ đề Hàn–Việt"></div>
-      <h3 style="margin-top:20px">Cụm từ đời thường</h3>
-      <p class="caption-ko" lang="ko" id="scenePhrase"></p>
-      <p id="sceneMeaning"></p>
+      <h3 style="margin-top:20px">Cụm từ trong clip</h3>
+      <div id="scenePhrases"></div>
       <div class="dramarow">
-        <button class="secondary" onclick="speak(dramas[chosen].phrase)">Nghe chậm</button>
-        <button class="secondary" onclick="saveSceneWord()">Lưu cụm từ</button>
         <button class="primary" onclick="openDramaRoleplay()">Luyện nhập vai</button>
       </div>
     </div>
@@ -78,7 +75,11 @@ const dramas = [
   {
     videoId: 'xLmneOGYuWc', seconds: 59,
     line: '솔아, 내가 너 많이 좋아해.', translation: 'Sol à, mình thích cậu nhiều lắm.',
-    phrase: '좋아해.', meaning: 'Mình thích cậu / Mình thích cái đó. (Thân mật)',
+    phrases: [
+      ['많이 좋아해.', 'Thích nhiều lắm. Dùng thân mật để nói về người hoặc điều mình thích.'],
+      ['내가', 'Mình / tôi. Dùng để chỉ mình là người thực hiện hoặc có cảm xúc.'],
+      ['너', 'Cậu / bạn. Dùng khi nói thân mật với người gần gũi.']
+    ],
     role: 'Bạn vừa được một người bạn tỏ tình. Hãy nói cảm xúc của mình rồi kể điều bạn thích ở người ấy.',
     turns: [
       {q:'나 너 좋아해. 넌 어때?', en:'Mình thích cậu. Còn cậu thì sao?', parts:[['나','Mình'],['너','Cậu'],['좋아해','Thích'],['넌','Còn cậu'],['어때','Thế nào?']], hint:'나도 너 좋아해.', test:s=>/좋아해/.test(s)},
@@ -88,7 +89,11 @@ const dramas = [
   {
     videoId: '3j8bQDmlHpE', seconds: 41,
     line: '그 노래… 어디서 들었어?', translation: 'Bài hát đó… cậu nghe ở đâu vậy?',
-    phrase: '어디서 들었어?', meaning: 'Cậu nghe ở đâu vậy? (Thân mật)',
+    phrases: [
+      ['어디서 들었어?', 'Cậu nghe ở đâu vậy? (Thân mật)'],
+      ['그 노래', 'Bài hát đó. Dùng để nhắc lại bài hát mà cả hai đang nói tới.'],
+      ['들었어', 'Đã nghe. Dạng quá khứ thân mật của 듣다 (nghe).']
+    ],
     role: 'Bạn và một người bạn cùng nhận ra một bài hát. Hỏi người ấy nghe ở đâu, rồi kể bạn đã nghe ở đâu.',
     turns: [
       {q:'나 이 노래 알아!', en:'Mình biết bài này!', parts:[['나','Mình'],['이','Này'],['노래','Bài hát'],['알아','Biết']], hint:'어디서 들었어?', test:s=>/어디서\s*들었어/.test(s)},
@@ -102,8 +107,35 @@ function renderDrama(){
   document.getElementById('dramaInfo').textContent = 'Clip TVING chính thức · ' + drama.seconds + ' giây';
   document.getElementById('sceneKorean').textContent = drama.line;
   document.getElementById('sceneEnglish').textContent = drama.translation;
-  document.getElementById('scenePhrase').textContent = drama.phrase;
-  document.getElementById('sceneMeaning').textContent = drama.meaning;
+  const list = document.getElementById('scenePhrases');
+  list.replaceChildren();
+  for (const [korean, vietnamese] of drama.phrases) {
+    const item = document.createElement('div');
+    item.className = 'explainbox';
+    const phrase = document.createElement('p');
+    phrase.className = 'caption-ko';
+    phrase.lang = 'ko';
+    phrase.textContent = korean;
+    const meaning = document.createElement('p');
+    meaning.textContent = vietnamese;
+    const controls = document.createElement('div');
+    controls.className = 'dramarow';
+    const listen = document.createElement('button');
+    listen.className = 'secondary';
+    listen.textContent = 'Nghe chậm';
+    listen.onclick = () => speak(korean);
+    const savePhrase = document.createElement('button');
+    savePhrase.className = 'secondary';
+    savePhrase.textContent = words.some(word => word.kr === korean) ? 'Đã lưu' : 'Lưu cụm từ';
+    savePhrase.onclick = () => {
+      if (!words.some(word => word.kr === korean)) words.push({kr: korean, en: vietnamese});
+      save();
+      savePhrase.textContent = 'Đã lưu';
+    };
+    controls.append(listen, savePhrase);
+    item.append(phrase, meaning, controls);
+    list.append(item);
+  }
 }
 function spinDrama(){
   closeClip();
@@ -243,12 +275,6 @@ async function renderDramaCaption(session, korean){
   } catch {
     if (captionSession === session) translated.textContent = 'Chưa dịch được câu này.';
   }
-}
-function saveSceneWord(){
-  const {phrase, meaning} = dramas[chosen];
-  if (!words.some(word => word.kr === phrase)) words.push({kr:phrase, en:meaning});
-  save();
-  alert('Đã lưu vào sổ từ vựng ♡');
 }
 function openDramaRoleplay(){
   dramaRole = dramas[chosen];
