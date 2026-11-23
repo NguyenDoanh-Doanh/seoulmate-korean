@@ -56,7 +56,7 @@
     </div>
   </div>
 </section>
-<section id="vocab" class="section"><div class="hero" style="min-height:145px"><div><span class="pill">Kho từ của bạn</span><h2>Từ vựng đã học 📖</h2><p>Các cụm từ đã lưu sẽ hiển thị trên trình duyệt này.</p></div><div class="hero-emoji">📚</div></div><div class="grid"><div class="panel"><div class="panelhead"><h3>Sổ từ vựng Hàn–Việt</h3><span id="vocabCount" class="counter"></span></div><div id="wordList"></div></div><div class="panel"><h3>＋ Thêm từ của bạn</h3><div class="desc">Lưu cụm từ mới để ôn lại vào Chủ nhật.</div><label for="newKr">Tiếng Hàn</label><input lang="ko" class="field" id="newKr" placeholder="Từ hoặc cụm từ tiếng Hàn" style="margin-top:18px"><label for="newEn">Nghĩa tiếng Việt</label><input lang="vi" class="field" id="newEn" placeholder="Nghĩa tiếng Việt" style="margin-top:8px"><button class="primary" style="margin-top:12px" onclick="addCustomWord()">Lưu vào sổ</button><div class="notice" style="margin-top:20px">☁️ Sổ từ được lưu trên trình duyệt này. Bạn có thể xuất danh sách để mang sang thiết bị khác.</div><button class="secondary" style="margin-top:12px" onclick="exportVocab()">↓ Xuất từ vựng (.txt)</button></div></div></section>
+<section id="vocab" class="section"><div class="hero" style="min-height:145px"><div><span class="pill">Kho từ của bạn</span><h2>Từ vựng đã học 📖</h2><p>Các cụm từ đã lưu sẽ hiển thị trên trình duyệt này.</p></div><div class="hero-emoji">📚</div></div><div class="grid"><div class="panel"><div class="panelhead"><h3>Sổ từ vựng Hàn–Việt</h3><span id="vocabCount" class="counter"></span></div><p id="vocabAudioStatus" class="helper" role="status"></p><div id="wordList"></div></div><div class="panel"><h3>＋ Thêm từ của bạn</h3><div class="desc">Lưu cụm từ mới để ôn lại vào Chủ nhật.</div><label for="newKr">Tiếng Hàn</label><input lang="ko" class="field" id="newKr" placeholder="Từ hoặc cụm từ tiếng Hàn" style="margin-top:18px"><label for="newEn">Nghĩa tiếng Việt</label><input lang="vi" class="field" id="newEn" placeholder="Nghĩa tiếng Việt" style="margin-top:8px"><button class="primary" style="margin-top:12px" onclick="addCustomWord()">Lưu vào sổ</button><div class="notice" style="margin-top:20px">☁️ Sổ từ được lưu trên trình duyệt này. Bạn có thể xuất danh sách để mang sang thiết bị khác.</div><button class="secondary" style="margin-top:12px" onclick="exportVocab()">↓ Xuất từ vựng (.txt)</button></div></div></section>
 <section id="review" class="section"><div class="hero" style="min-height:155px"><div><span class="pill">Ôn tập cuối tuần</span><h2>Ôn tiếng Hàn lúc 22:00 🌙</h2><p>Thử nhớ nghĩa trước khi xem đáp án.</p></div><div class="hero-emoji">🌙</div></div><div class="grid"><div class="panel"><h3>Ôn nhanh từ vựng</h3><div class="desc">Từ này có nghĩa gì trong tiếng Việt?</div><div id="reviewWord" class="reviewword">안녕하세요</div><div id="reviewAnswer" class="reviewanswer">Bấm Xem nghĩa để kiểm tra.</div><div class="dramarow"><button class="primary" onclick="revealReview()">Xem nghĩa</button><button class="secondary" onclick="nextReview()">Từ tiếp theo</button><button class="secondary" onclick="speak(document.getElementById('reviewWord').textContent)">🔊 Listen</button></div><div class="helper" id="reviewProgress"></div></div><div class="panel"><h3>Các bước ôn tập</h3><div class="desc">Chủ nhật · 22:00 · Giờ Việt Nam</div><div class="explainbox" style="font-size:13px;line-height:2.1">① Nhìn từ tiếng Hàn<br>② Nói nghĩa tiếng Việt thành tiếng<br>③ Lặp lại cách phát âm<br>④ Đặt câu của riêng bạn</div><div class="notice" style="margin-top:15px">Lịch nhắc ôn tập được quản lý trong ChatGPT.</div></div></div></section>
 <div class="footer">Góc học tiếng Hàn của Sophie ♡</div></main></div><div class="mobileNav"><button onclick="switchTab('home')"><span>⌂</span>Trang chủ</button><button onclick="switchTab('speaking')"><span>🎙️</span>Luyện nói</button><button onclick="switchTab('drama')"><span>🎬</span>Phim Hàn</button><button onclick="switchTab('vocab')"><span>📖</span>Từ vựng</button><button onclick="switchTab('review')"><span>🌙</span>Ôn tập</button></div>
 <script>
@@ -69,7 +69,72 @@ function loadVietnameseWords(){
   });
 }
 const load=(key,def)=>{try{return JSON.parse(localStorage.getItem(key))??def}catch(e){return def}};let words=loadVietnameseWords(),practice=load('sophie-practice-v1',0);const save=()=>{localStorage.setItem('sophie-vocab-v1',JSON.stringify(words));localStorage.setItem('sophie-practice-v1',JSON.stringify(practice));renderWords();renderStats()};function switchTab(t){if(t!=='drama')closeClip();document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===t));document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));if(t==='review')nextReview();window.scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('.nav').forEach(x=>x.addEventListener('click',()=>switchTab(x.dataset.tab)));
-function speak(s){if(!('speechSynthesis'in window)){alert('Trình duyệt này chưa hỗ trợ đọc thành tiếng.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(s);u.lang='ko-KR';u.rate=Number(document.getElementById('speed').value);u.pitch=1.12;const vs=speechSynthesis.getVoices();let k=vs.find(v=>v.lang.startsWith('ko')&&/female|yuna|sora|heami/i.test(v.name))||vs.find(v=>v.lang.startsWith('ko'));if(k)u.voice=k;speechSynthesis.speak(u)}
+let pronunciationRequest = 0;
+let pronunciationUtterance;
+let pronunciationAudio;
+function speak(text, status = null){
+  const request = ++pronunciationRequest;
+  const report = message => {
+    if (request === pronunciationRequest && status) status.textContent = message;
+  };
+  const synthesis = window.speechSynthesis;
+  const rate = Number(document.getElementById('speed').value) || 0.82;
+  const publicTerm = baseWords.some(word => word.kr === text)
+    || prompts.some(prompt => prompt.parts.some(([kr]) => kr === text))
+    || dramas.some(drama => drama.phrases.some(([kr]) => kr === text)
+      || drama.turns.some(turn => turn.parts.some(([kr]) => kr === text)));
+  let timer;
+  let fallbackStarted = false;
+  function fallback(){
+    if (request !== pronunciationRequest || fallbackStarted) return;
+    fallbackStarted = true;
+    clearTimeout(timer);
+    pronunciationUtterance = null;
+    synthesis?.cancel();
+    if (!publicTerm) {
+      report('Chưa phát được từ này. Hãy kiểm tra âm lượng và bật giọng tiếng Hàn trên thiết bị.');
+      return;
+    }
+    const url = new URL('https://translate.google.com/translate_tts');
+    url.search = new URLSearchParams({ie:'UTF-8',client:'tw-ob',tl:'ko',q:text});
+    const audio = new Audio(url.href);
+    pronunciationAudio = audio;
+    audio.playbackRate = rate;
+    audio.onplaying = () => report('Đang phát: ' + text);
+    audio.onended = () => report('');
+    const onError = () => report('Chưa tải được âm thanh. Hãy kiểm tra kết nối và bấm loa để thử lại.');
+    audio.onerror = onError;
+    audio.play().catch(onError);
+  }
+  pronunciationAudio?.pause();
+  pronunciationAudio = null;
+  synthesis?.cancel();
+  report('Đang chuẩn bị phát: ' + text);
+  if (!synthesis || !window.SpeechSynthesisUtterance) {
+    fallback();
+    return;
+  }
+  const utterance = new SpeechSynthesisUtterance(text);
+  pronunciationUtterance = utterance;
+  const voices = synthesis.getVoices().filter(voice => /^ko(?:[-_]|$)/i.test(voice.lang));
+  utterance.voice = voices.find(voice => /female|yuna|sora|heami/i.test(voice.name)) || voices[0] || null;
+  utterance.lang = utterance.voice?.lang || 'ko-KR';
+  utterance.rate = rate;
+  utterance.onstart = () => {
+    clearTimeout(timer);
+    report('Đang phát: ' + text);
+  };
+  utterance.onend = () => {
+    clearTimeout(timer);
+    if (pronunciationUtterance === utterance) pronunciationUtterance = null;
+    report('');
+  };
+  utterance.onerror = fallback;
+  timer = setTimeout(fallback, 1800);
+  synthesis.resume();
+  synthesis.speak(utterance);
+}
+
 let chatStep=0,retry=false;const prompts=[{q:'안녕하세요! 이름이 뭐예요?',en:'Xin chào! Bạn tên gì?',parts:[['안녕하세요','Xin chào'],['이름','Tên'],['이','Tiểu từ chủ ngữ'],['뭐예요','Là gì?']],expected:'소피예요',test:s=>/소피/.test(s),hint:'안녕하세요! 저는 소피예요.'},{q:'어느 나라 사람이에요?',en:'Bạn là người nước nào?',parts:[['어느','Nào'],['나라','Quốc gia'],['사람','Người'],['이에요','Là']],expected:'베트남 사람이에요',test:s=>/베트남/.test(s),hint:'저는 베트남 사람이에요.'},{q:'오늘 기분이 어때요?',en:'Hôm nay bạn thấy thế nào?',parts:[['오늘','Hôm nay'],['기분','Tâm trạng'],['이','Tiểu từ chủ ngữ'],['어때요','Thế nào?']],expected:'좋아요',test:s=>/좋아요|괜찮아요|피곤해요|행복해요|슬퍼요/.test(s),hint:'좋아요. (Tốt!) / 피곤해요. (Mình mệt.)'},{q:'한국어 공부가 재미있어요?',en:'Học tiếng Hàn có thú vị không?',parts:[['한국어','Tiếng Hàn'],['공부','Việc học'],['가','Tiểu từ chủ ngữ'],['재미있어요','Is fun']],expected:'네, 재미있어요',test:s=>/네|아니요|재미있어요|재미없어요/.test(s),hint:'네, 재미있어요. / 아니요, 어려워요.'},{q:'주말에 뭐 해요?',en:'Cuối tuần bạn làm gì?',parts:[['주말','Cuối tuần'],['에','Vào / ở'],['뭐','Gì'],['해요','Làm']],expected:'드라마 봐요',test:s=>/봐요|해요|가요|쉬어요|만나요|자요/.test(s),hint:'드라마 봐요. (Mình xem phim.)'}];
 function addBubble(who,t){const a=document.createElement('div');a.className='bubble '+(who==='Sophie'?'student':'tutor');const b=document.createElement('span');b.className='speaker';b.textContent=who+' ·';a.append(b,document.createTextNode(t));document.getElementById('chat').append(a);document.getElementById('chat').scrollTop=99999}let dramaRole = null;
 function current(){
@@ -295,7 +360,10 @@ function leaveDramaRoleplay(){
   document.getElementById('dramaRole').hidden = true;
   resetChat();
 }
-function escapeHTML(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}function renderWords(){let l=document.getElementById('wordList');l.innerHTML=words.length?words.map((w,i)=>'<div class="wordrow"><div><div class="wordkr" lang="ko">'+escapeHTML(w.kr)+'</div><div class="wordeng" lang="vi">'+escapeHTML(w.en)+'</div></div><div><button class="tiny" onclick="speak(words['+i+'].kr)">🔊</button> <button class="tiny" onclick="editMeaning('+i+')">Sửa nghĩa</button> <button class="tiny" onclick="removeWord('+i+')">×</button></div></div>').join(''):'<p class="desc">Sổ từ vựng đang trống.</p>';document.getElementById('vocabCount').textContent=words.length+' từ đã lưu'}function editMeaning(index){
+function escapeHTML(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}function renderWords(){let l=document.getElementById('wordList');l.innerHTML=words.length?words.map((w,i)=>'<div class="wordrow"><div><div class="wordkr" lang="ko">'+escapeHTML(w.kr)+'</div><div class="wordeng" lang="vi">'+escapeHTML(w.en)+'</div></div><div><button class="tiny" aria-label="Nghe phát âm" onclick="playVocabularyWord('+i+')">🔊</button> <button class="tiny" onclick="editMeaning('+i+')">Sửa nghĩa</button> <button class="tiny" onclick="removeWord('+i+')">×</button></div></div>').join(''):'<p class="desc">Sổ từ vựng đang trống.</p>';document.getElementById('vocabCount').textContent=words.length+' từ đã lưu'}function playVocabularyWord(index){
+  speak(words[index].kr, document.getElementById('vocabAudioStatus'));
+}
+function editMeaning(index){
   const word = words[index];
   const next = prompt('Nghĩa tiếng Việt của ' + word.kr, word.en);
   if (next?.trim()) {
@@ -322,6 +390,7 @@ const originalResetChat=resetChat;
 resetChat=function(){stopLivePractice();originalResetChat()};
 const originalSwitchTab=switchTab;
 switchTab=function(t){if(t!=='speaking'&&liveActive)stopLivePractice();originalSwitchTab(t)};
+window.speechSynthesis?.getVoices();
 window.addEventListener('pagehide',()=>{stopDramaCaptions();if(liveActive)stopLivePractice()});
 
 </script></body></html>
