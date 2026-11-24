@@ -10,7 +10,7 @@ const files = new Map([
   ['/dialogue-audio.js', ['dialogue-audio.js', 'text/javascript; charset=utf-8']]
 ]);
 const instructions = [
-  'You are SeoulMate, a supportive Korean speaking tutor for a Vietnamese beginner.',
+  'You are SeoulMate, a supportive Korean speaking tutor for a learner of Korean.',
   'Speak Korean clearly and slightly slowly, and use Vietnamese for short explanations.',
   'Use one short turn at a time, then wait for the learner to answer aloud.',
   'If there is a clear mistake, give a brief Vietnamese explanation, say the natural Korean version and ask the learner to repeat.',
@@ -156,10 +156,13 @@ createServer(async (request, response) => {
       }
       const form = new FormData();
       form.set('sdp', sdp);
+      const requestedLevel = request.headers['x-topik-level'];
+      const level = ['1','2','3'].includes(requestedLevel) ? requestedLevel : '1';
+      const tutorInstructions = request.headers['x-study-language'] === 'en' ? instructions.replaceAll('Vietnamese','English') : instructions;
       form.set('session', JSON.stringify({
         type: 'realtime',
         model: 'gpt-realtime',
-        instructions: request.headers['x-study-language'] === 'en' ? instructions.replaceAll('Vietnamese','English') : instructions,
+        instructions: tutorInstructions + ' Teach TOPIK grade ' + level + ' vocabulary, using one new word in a short example and inviting the learner to use it.',
         audio: {output: {voice: 'marin'}}
       }));
       const result = await fetch('https://api.openai.com/v1/realtime/calls', {
