@@ -9,9 +9,9 @@
 .sentence-panel{margin-top:20px}.sentence-panel label{display:block;margin:18px 0 6px}
 .sentence-panel textarea{resize:vertical}.sentence-feedback{white-space:pre-wrap;line-height:1.55}
 .word-chip{font-size:14px}.word-chip span{display:block;font-size:12px;font-weight:400}
-</style></head><body><div class="app"><aside class="sidebar"><div class="brand">seoul<span>mate.</span> <span style="font-size:14px">♡</span></div><div class="smalllabel">GÓC HỌC TẬP</div><button class="nav active" data-tab="home"><span class="ico">⌂</span> Trang chủ</button><button class="nav" data-tab="speaking"><span class="ico">🎙️</span> Phòng luyện nói</button><button class="nav" data-tab="drama"><span class="ico">🎬</span> Vòng quay K-drama</button><button class="nav" data-tab="vocab"><span class="ico">📖</span> Sổ từ vựng</button><button class="nav" data-tab="review"><span class="ico">✿</span> Ôn tập Chủ nhật</button><div class="sidebottom"><strong>🌷 Cách học của bạn</strong><br>Nhẹ nhàng · Nói tiếng Hàn chậm<br>Sửa lỗi và nhắc lại<br>Ưu tiên phim Hàn lãng mạn ♡</div></aside><main class="main"><div class="top"><div><div class="eyebrow">Một chút tiếng Hàn mỗi ngày ✦</div><h1 class="hello">안녕, Sophie! <span style="color:#e3a6bb">♡</span></h1><div class="sub">Học tiếng Hàn qua từng cuộc trò chuyện.</div></div><div class="avatar">🌸</div></div>
+</style></head><body><div class="app"><aside class="sidebar"><div class="brand">seoul<span>mate.</span> <span style="font-size:14px">♡</span></div><div class="smalllabel">GÓC HỌC TẬP</div><button class="nav active" data-tab="home"><span class="ico">⌂</span> Trang chủ</button><button class="nav" data-tab="speaking"><span class="ico">🎙️</span> Phòng luyện nói</button><button class="nav" data-tab="drama"><span class="ico">🎬</span> Vòng quay K-drama</button><button class="nav" data-tab="vocab"><span class="ico">📖</span> Sổ từ vựng</button><button class="nav" data-tab="review"><span class="ico">✿</span> Ôn tập Chủ nhật</button><div class="sidebottom"><strong>🌷 Cách học của bạn</strong><br>Nhẹ nhàng · Nói tiếng Hàn chậm<br>Sửa lỗi và nhắc lại<br>Ưu tiên phim Hàn lãng mạn ♡</div></aside><main class="main"><div class="top"><div><div class="eyebrow">Một chút tiếng Hàn mỗi ngày ✦</div><h1 class="hello">안녕, Sophie! <span style="color:#e3a6bb">♡</span></h1><div class="sub">Học tiếng Hàn qua từng cuộc trò chuyện.</div></div><label>Ngôn ngữ học / Learn in <select id="studyLanguage" class="field"><option value="vi">Tiếng Việt</option><option value="en">English</option></select></label><div class="avatar">🌸</div></div>
 <section id="home" class="section active"><div class="hero"><div><span class="pill">Góc học tiếng Hàn của bạn</span><h2>Tập nói tiếng Hàn mỗi ngày</h2><p>Hội thoại đời thường và những cảnh phim Hàn lãng mạn.<br>Luyện tập theo nhịp của bạn.</p></div><div class="hero-emoji">🎧</div></div><div class="stats"><div class="stat"><div class="num" id="homeWords">0</div><div class="statname">Từ đã lưu</div></div><div class="stat"><div class="num" id="homePractices">0</div><div class="statname">Lượt trả lời</div></div><div class="stat"><div class="num">CN 22:00</div><div class="statname">Giờ ôn tập</div></div></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Cùng trò chuyện một chút nhé?</h3><div class="desc">Luyện phản xạ bằng tiếng Hàn.</div></div><span style="font-size:27px">💬</span></div><div style="background:#fbf4f7;padding:20px;border-radius:14px;margin:17px 0;font-size:19px;font-weight:800">오늘 하루 어땠어요?</div><div class="desc">Hôm nay bạn thế nào? Hãy thử trả lời bằng tiếng Hàn.</div><button class="primary" style="margin-top:16px" onclick="switchTab('speaking')">Vào phòng luyện nói</button></div><div class="panel"><h3>Cảnh phim hôm nay</h3><div class="desc" style="margin-bottom:12px">Mỗi lượt một cảnh phim ✨</div><div class="dramacard"><div class="dramatag">♡ Phim Hàn lãng mạn</div><div class="dramatitle" id="homeDrama">Lovely Runner</div><div class="dramasub">Clip chính thức · YouTube</div></div><button class="secondary" style="margin-top:13px;width:100%" onclick="switchTab('drama')">Mở vòng quay K-drama</button></div></div></section>
-<section id="speaking" class="section"><div class="hero" style="min-height:150px"><div><span class="pill">Phòng luyện nói</span><h2>Cùng nói tiếng Hàn ♡</h2><p>Nghe, trả lời tự nhiên và tiếp tục hội thoại.</p></div><div class="hero-emoji">🎙️</div></div><div class="panel" id="tutorSettings" style="margin-top:16px"><h3>Gia sư AI Hàn–Việt</h3><div class="dramarow"><label>Giọng đọc<select class="field" id="voiceStyle"><option value="default">Giọng có sẵn</option><option value="F1">Giọng AI nữ</option><option value="M1">Giọng AI nam</option></select></label><label>Phong cách<select class="field" id="tutorStyle"><option value="Nhẹ nhàng">Nhẹ nhàng</option><option value="Nghiêm túc">Nghiêm túc</option><option value="Khắc nghiệt">Khắc nghiệt</option><option value="Cợt nhả">Cợt nhả</option><option value="Kiên nhẫn">Kiên nhẫn</option></select></label><label>Trình độ<select class="field" id="tutorLevel"><option value="1">TOPIK 1</option><option value="2">TOPIK 2</option><option value="3">TOPIK 3</option></select></label><label>Ngôn ngữ bạn nói<select class="field" id="micLang"><option value="ko-KR">Tiếng Hàn</option><option value="vi-VN">Tiếng Việt</option></select></label></div><p class="helper">Lần đầu mở gia sư, trình duyệt tải mô hình hội thoại và giọng đọc. Cần WebGPU, bộ nhớ trống và kết nối ổn định.</p><button id="localTutor" class="primary" onclick="startTutor()">Trò chuyện với gia sư AI</button> <button class="secondary" onclick="speak('안녕하세요!')">Nghe thử giọng</button></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Luyện hội thoại</h3><div class="desc">Sơ cấp · Nói chậm · Tiếng Hàn đời thường</div></div><button class="tiny" onclick="resetChat()">Luyện lại</button></div><div class="dramarow" style="align-items:center;gap:10px;margin:12px 0"><button class="primary" id="liveToggle" onclick="toggleLivePractice()" style="min-width:170px">🎙️ Bắt đầu luyện nói</button><button class="secondary" id="aiVoiceToggle" onclick="toggleAiVoice()" hidden>Luyện nói với giọng AI OpenAI</button><span class="helper" id="openAiVoiceLabel" hidden>Giọng đọc do AI OpenAI tạo</span><span id="liveStatus" role="status" aria-live="polite" style="font-size:13px;color:#8d79b1">Sẵn sàng · Mic đang tắt</span></div><div class="notice role-context" id="dramaRole" hidden>
+<section id="speaking" class="section"><div class="hero" style="min-height:150px"><div><span class="pill">Phòng luyện nói</span><h2>Cùng nói tiếng Hàn ♡</h2><p>Nghe, trả lời tự nhiên và tiếp tục hội thoại.</p></div><div class="hero-emoji">🎙️</div></div><div class="panel" id="tutorSettings" style="margin-top:16px"><h3>Gia sư AI Hàn–Việt</h3><div class="dramarow"><label>Giọng đọc<select class="field" id="voiceStyle"><option value="default">Giọng có sẵn</option><option value="F1">Giọng AI nữ</option><option value="M1">Giọng AI nam</option></select></label><label>Phong cách<select class="field" id="tutorStyle"><option value="Nhẹ nhàng">Nhẹ nhàng</option><option value="Nghiêm túc">Nghiêm túc</option><option value="Khắc nghiệt">Khắc nghiệt</option><option value="Cợt nhả">Cợt nhả</option><option value="Kiên nhẫn">Kiên nhẫn</option></select></label><label>Trình độ<select class="field" id="tutorLevel"><option value="1">TOPIK 1</option><option value="2">TOPIK 2</option><option value="3">TOPIK 3</option></select></label><label>Ngôn ngữ bạn nói<select class="field" id="micLang"><option value="ko-KR">Tiếng Hàn</option><option value="en-US">English</option><option value="vi-VN">Tiếng Việt</option></select></label></div><p class="helper">Lần đầu mở gia sư, trình duyệt tải mô hình hội thoại và giọng đọc. Cần WebGPU, bộ nhớ trống và kết nối ổn định.</p><button id="localTutor" class="primary" onclick="startTutor()">Trò chuyện với gia sư AI</button> <button class="secondary" onclick="speak('안녕하세요!')">Nghe thử giọng</button></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Luyện hội thoại</h3><div class="desc">Sơ cấp · Nói chậm · Tiếng Hàn đời thường</div></div><button class="tiny" onclick="resetChat()">Luyện lại</button></div><div class="dramarow" style="align-items:center;gap:10px;margin:12px 0"><button class="primary" id="liveToggle" onclick="toggleLivePractice()" style="min-width:170px">🎙️ Bắt đầu luyện nói</button><button class="secondary" id="aiVoiceToggle" onclick="toggleAiVoice()" hidden>Luyện nói với giọng AI OpenAI</button><span class="helper" id="openAiVoiceLabel" hidden>Giọng đọc do AI OpenAI tạo</span><span id="liveStatus" role="status" aria-live="polite" style="font-size:13px;color:#8d79b1">Sẵn sàng · Mic đang tắt</span></div><div class="notice role-context" id="dramaRole" hidden>
 <p id="dramaRoleContext"></p><button class="tiny" onclick="leaveDramaRoleplay()">Về bài luyện giao tiếp</button>
 </div><div class="chat" id="chat"></div><div class="controls"><button class="round" id="mic" onclick="recordSpeech()" title="Dùng mic">🎤</button><input class="field" id="reply" placeholder="Nói hoặc nhập tiếng Hàn…" onkeydown="if(event.key==='Enter')sendReply()"><button class="primary" onclick="sendReply()">Gửi</button></div><div class="dramarow"><button class="secondary" onclick="playLast()">🔊 Nghe chậm</button><button class="secondary" onclick="explainLast()">📖 Giải thích từng từ</button><button class="secondary" onclick="repeatPrompt()">🔁 Nghe lại</button></div><div class="feedback" id="feedback"></div><div class="helper">Chế độ luyện nói dùng mic và giọng đọc của trình duyệt. Các lượt nhập vai theo kịch bản và kiểm tra mẫu câu cơ bản.</div></div><div class="panel"><h3>Cách luyện nói 🌷</h3><p class="desc">Nghe từng câu hỏi, trả lời, rồi tập nói lại theo gợi ý khi cần.</p><div class="explainbox"><strong>Mẫu câu hôm nay</strong><p style="font:800 19px Nunito;margin:12px 0 5px">저는 ___예요 / 이에요.</p><div class="desc">“Tôi là ___.” Dùng 예요 sau nguyên âm và 이에요 sau phụ âm.</div></div><h3 style="margin-top:25px">Tốc độ nói</h3><div class="desc">Chậm hơn tốc độ tự nhiên</div><input id="speed" type="range" min="0.65" max="1" value="0.82" step="0.01" style="width:100%;accent-color:#d985aa;margin-top:15px"><div class="helper">Giọng đọc phụ thuộc vào giọng tiếng Hàn có sẵn trên thiết bị.</div></div></div></section>
 <section id="drama" class="section">
@@ -83,6 +83,32 @@
 <script>
 const baseWords=[{kr:'안녕하세요',en:'Xin chào (lịch sự)'},{kr:'저는',en:'Tôi (chủ đề)'},{kr:'소피예요',en:'Tôi là Sophie'},{kr:'베트남',en:'Việt Nam'},{kr:'사람',en:'Người'},{kr:'왔어요',en:'Đã đến'},{kr:'공부하러',en:'Để học'},{kr:'네',en:'Vâng'},{kr:'아니요',en:'Không'},{kr:'재미있어요',en:'Thú vị'},{kr:'어디',en:'Ở đâu'},{kr:'오늘',en:'Hôm nay'}];
 const legacyMeanings = [["안녕하세요", "Hello (polite)", "Xin chào (lịch sự)"], ["저는", "As for me / I", "Tôi (chủ đề)"], ["소피예요", "I am Sophie", "Tôi là Sophie"], ["베트남", "Vietnam", "Việt Nam"], ["사람", "Person", "Người"], ["왔어요", "Came", "Đã đến"], ["공부하러", "To study (purpose of coming)", "Để học"], ["네", "Yes", "Vâng"], ["아니요", "No", "Không"], ["재미있어요", "Is fun / interesting", "Thú vị"], ["어디", "Where", "Ở đâu"], ["오늘", "Today", "Hôm nay"], ["안녕하세요", "Hello", "Xin chào"], ["이름", "Name", "Tên"], ["이", "Subject marker", "Tiểu từ chủ ngữ"], ["뭐예요", "What is it?", "Là gì?"], ["어느", "Which", "Nào"], ["나라", "Country", "Quốc gia"], ["사람", "Person", "Người"], ["이에요", "Am / is", "Là"], ["오늘", "Today", "Hôm nay"], ["기분", "Mood / feelings", "Tâm trạng"], ["이", "Subject marker", "Tiểu từ chủ ngữ"], ["어때요", "How is it?", "Thế nào?"], ["한국어", "Korean language", "Tiếng Hàn"], ["공부", "Studying", "Việc học"], ["가", "Subject marker", "Tiểu từ chủ ngữ"], ["주말", "Weekend", "Cuối tuần"], ["에", "On / at", "Vào / ở"], ["뭐", "What", "Gì"], ["해요", "Do", "Làm"], ["오늘 뭐 해요?", "What are you doing today?", "Hôm nay bạn làm gì?"], ["정말 고마워요.", "Thank you so much.", "Cảm ơn bạn rất nhiều."], ["보고 싶었어요.", "I missed you.", "Mình nhớ bạn."], ["좋아해.", "I like you / I like it. (Casual)", "Mình thích cậu / Mình thích cái đó. (Thân mật)"], ["어디서 들었어?", "Where did you hear it? (Casual)", "Cậu nghe ở đâu vậy? (Thân mật)"]];
+const studyLang = localStorage.getItem('seoulmate-study-language') === 'en' ? 'en' : 'vi';
+const studyPicker = document.getElementById('studyLanguage');
+studyPicker.value = studyLang;
+studyPicker.onchange = () => {
+  localStorage.setItem('seoulmate-study-language', studyPicker.value);
+  location.reload();
+};
+const glossary = new Map(legacyMeanings.map(([kr,en,vi])=>[vi,en]));
+for (const [vi,en] of Object.entries({
+  'Thú vị':'Fun / interesting','Is fun':'Fun','Mình':'I','Cậu':'You','Thích':'Like','Còn cậu':'As for you','Thế nào?':'How is it?','Của mình':'My','Nào':'Which','Điểm + tiểu từ chủ ngữ':'Quality + subject marker','Cậu thích?':'Do you like?','Này':'This','Bài hát':'Song','Biết':'Know','Ở quán cà phê':'At a café','Đã nghe':'Heard','Ở đâu':'Where',
+  'Sol à, mình thích cậu nhiều lắm.':'Sol, I really like you.','Bài hát đó… cậu nghe ở đâu vậy?':'That song… where did you hear it?',
+  'Thích nhiều lắm. Dùng thân mật để nói về người hoặc điều mình thích.':'I really like you / it. Used casually.',
+  'Mình / tôi. Dùng để chỉ mình là người thực hiện hoặc có cảm xúc.':'I (subject of the verb).',
+  'Cậu / bạn. Dùng khi nói thân mật với người gần gũi.':'You (casual, between people who are close).',
+  'Bài hát đó. Dùng để nhắc lại bài hát mà cả hai đang nói tới.':'That song. Refers to a song you both know.',
+  'Đã nghe. Dạng quá khứ thân mật của 듣다 (nghe).':'Heard. Casual past tense of 듣다 (to hear).',
+  'Bao nhiêu tiền?':'How much is it?', 'Mình đi cùng nhau nhé?':'Shall we go together?', 'Hãy nói lại giúp mình.':'Please say it again.',
+  'Mình đã từng đến đó.':'I have been there before.', 'Mình muốn đặt chỗ.':'I would like to make a reservation.', 'Mình đi thế nào để tới đó?':'How do I get there?',
+  'Theo mình thì…':'In my opinion…', 'Cũng có thể như vậy.':'That could be the case.', 'Ngay khi có thời gian…':'As soon as I have time…',
+  'Xin chào! Bạn tên gì?':'Hello! What is your name?', 'Bạn là người nước nào?':'What country are you from?', 'Hôm nay bạn thấy thế nào?':'How do you feel today?', 'Học tiếng Hàn có thú vị không?':'Is learning Korean fun?', 'Cuối tuần bạn làm gì?':'What do you do on weekends?',
+  'Mình thích cậu. Còn cậu thì sao?':'I like you. How about you?', 'Cậu thích điều gì ở mình?':'What do you like about me?', 'Mình biết bài này!':'I know this song!', 'Mình nghe ở quán cà phê. Cậu nghe ở đâu?':'I heard it at a café. Where did you hear it?',
+  'Bạn vừa được một người bạn tỏ tình. Hãy nói cảm xúc của mình rồi kể điều bạn thích ở người ấy.':'A friend tells you they like you. Tell them how you feel and what you like about them.',
+  'Bạn và một người bạn cùng nhận ra một bài hát. Hỏi người ấy nghe ở đâu, rồi kể bạn đã nghe ở đâu.':'You and a friend recognize a song. Ask where they heard it, then say where you heard it.'
+})) glossary.set(vi,en);
+function gloss(value){return studyLang==='en' ? glossary.get(value) || value : value;}
+function wordMeaning(word){return word[studyLang+'Meaning'] || gloss(word.en);}
 function loadVietnameseWords(){
   return load('sophie-vocab-v1', baseWords).map(word => {
     const legacy = legacyMeanings.find(([kr, en]) => kr === word.kr && en === word.en);
@@ -178,7 +204,7 @@ function current(){
   return activePrompts[chatStep % activePrompts.length];
 }function resetChat(){chatStep=0;retry=false;document.getElementById('chat').innerHTML='';document.getElementById('feedback').style.display='none';addBubble('Gia sư',current().q)}function sendReply(){let el=document.getElementById('reply'),s=el.value.trim();if(!s)return;el.value='';addBubble('Sophie',s);practice++;const p=current();let correct=p.test(s);let fb=document.getElementById('feedback');if(correct){fb.textContent='🌸 잘했어요! Tốt lắm! Câu trả lời khớp với mẫu đang luyện.';retry=false;chatStep++;addBubble('Gia sư','좋아요! '+current().q)}else{retry=true;fb.textContent=dramaRole
   ? 'Thử dùng cụm từ vừa học. Hãy nói “'+p.hint+'” rồi trả lời lại nhé.'
-  : '💗 Thử nói theo mẫu: “'+p.hint+'” Hãy nói lại thành tiếng nhé.';addBubble('Gia sư','다시 한 번 말해 볼까요? '+p.hint)}fb.style.display='block';save()}function explainLast(){let p=current();const b=document.getElementById('feedback');b.innerHTML='<strong>📖 '+p.q+'</strong><br>'+p.en+'<br><br>'+p.parts.map(x=>'<b>'+x[0]+'</b> = '+x[1]).join(' · ')+'<br><br>Đọc chậm từng từ, rồi đọc cả câu.';b.style.display='block';p.parts.forEach(([kr,en])=>{if(!words.find(w=>w.kr===kr))words.push({kr,en})});save()}function playLast(){speak(current().q)}function repeatPrompt(){speak(current().q)}function recordSpeech(){let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){alert('Hãy dùng Chrome có quyền mic hoặc nhập câu trả lời.');return}let r=new R();r.lang='ko-KR';r.interimResults=false;r.maxAlternatives=1;const b=document.getElementById('mic');b.textContent='🔴';r.onresult=e=>{document.getElementById('reply').value=e.results[0][0].transcript;b.textContent='🎤'};r.onerror=e=>{b.textContent='🎤';alert('Lỗi mic: '+e.error)};r.onend=()=>b.textContent='🎤';r.start()}
+  : '💗 Thử nói theo mẫu: “'+p.hint+'” Hãy nói lại thành tiếng nhé.';addBubble('Gia sư','다시 한 번 말해 볼까요? '+p.hint)}fb.style.display='block';save()}function explainLast(){let p=current();const b=document.getElementById('feedback');b.innerHTML='<strong>📖 '+p.q+'</strong><br>'+gloss(p.en)+'<br><br>'+p.parts.map(x=>'<b>'+x[0]+'</b> = '+gloss(x[1])).join(' · ')+'<br><br>Đọc chậm từng từ, rồi đọc cả câu.';b.style.display='block';p.parts.forEach(([kr,en])=>{if(!words.find(w=>w.kr===kr))words.push({kr,en})});save()}function playLast(){speak(current().q)}function repeatPrompt(){speak(current().q)}function recordSpeech(){let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){alert('Hãy dùng Chrome có quyền mic hoặc nhập câu trả lời.');return}let r=new R();r.lang='ko-KR';r.interimResults=false;r.maxAlternatives=1;const b=document.getElementById('mic');b.textContent='🔴';r.onresult=e=>{document.getElementById('reply').value=e.results[0][0].transcript;b.textContent='🎤'};r.onerror=e=>{b.textContent='🎤';alert('Lỗi mic: '+e.error)};r.onend=()=>b.textContent='🎤';r.start()}
 const dramas = [
   {
     videoId: 'xLmneOGYuWc', seconds: 59,
@@ -214,7 +240,7 @@ function renderDrama(){
   const drama = dramas[chosen];
   document.getElementById('dramaInfo').textContent = 'Clip TVING chính thức · ' + drama.seconds + ' giây';
   document.getElementById('sceneKorean').textContent = drama.line;
-  document.getElementById('sceneEnglish').textContent = drama.translation;
+  document.getElementById('sceneEnglish').textContent = gloss(drama.translation);
   const list = document.getElementById('scenePhrases');
   list.replaceChildren();
   for (const [korean, vietnamese] of drama.phrases) {
@@ -225,7 +251,7 @@ function renderDrama(){
     phrase.lang = 'ko';
     phrase.textContent = korean;
     const meaning = document.createElement('p');
-    meaning.textContent = vietnamese;
+    meaning.textContent = gloss(vietnamese);
     const controls = document.createElement('div');
     controls.className = 'dramarow';
     const listen = document.createElement('button');
@@ -297,7 +323,7 @@ async function toggleDramaCaptions(){
   document.getElementById('captionLines').replaceChildren();
   setCaptionStatus('Chọn tab SeoulMate và bật chia sẻ âm thanh tab.');
   const translation = Translator.create({
-    sourceLanguage: 'ko', targetLanguage: 'vi', signal: session.abort.signal
+    sourceLanguage: 'ko', targetLanguage: studyLang, signal: session.abort.signal
   }).then(translator => {
     if (captionSession === session) session.translator = translator;
     else translator.destroy();
@@ -386,7 +412,7 @@ async function renderDramaCaption(session, korean){
 }
 function openDramaRoleplay(){
   dramaRole = dramas[chosen];
-  document.getElementById('dramaRoleContext').textContent = dramaRole.role;
+  document.getElementById('dramaRoleContext').textContent = gloss(dramaRole.role);
   document.getElementById('dramaRole').hidden = false;
   switchTab('speaking');
   resetChat();
@@ -410,7 +436,7 @@ function renderSentenceWords(){
     korean.lang = 'ko';
     korean.textContent = word.kr;
     const meaning = document.createElement('span');
-    meaning.textContent = word.en;
+    meaning.textContent = wordMeaning(word);
     button.append(korean, meaning);
     button.onclick = () => {
       const start = target.selectionStart;
@@ -517,7 +543,7 @@ function recordSentence(){
     feedback.textContent = 'Chưa bật được mic. Hãy kiểm tra quyền trên trình duyệt.';
   }
 }
-function escapeHTML(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}function renderWords(){let l=document.getElementById('wordList');l.innerHTML=words.length?words.map((w,i)=>'<div class="wordrow"><div><div class="wordkr" lang="ko">'+escapeHTML(w.kr)+'</div><div class="wordeng" lang="vi">'+escapeHTML(w.en)+'</div></div><div><button class="tiny" aria-label="Nghe phát âm" onclick="playVocabularyWord('+i+')">🔊</button> <button class="tiny" onclick="editMeaning('+i+')">Sửa nghĩa</button> <button class="tiny" onclick="removeWord('+i+')">×</button></div></div>').join(''):'<p class="desc">Sổ từ vựng đang trống.</p>';document.getElementById('vocabCount').textContent=words.length+' từ đã lưu'}let aiVoice;
+function escapeHTML(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}function renderWords(){let l=document.getElementById('wordList');l.innerHTML=words.length?words.map((w,i)=>'<div class="wordrow"><div><div class="wordkr" lang="ko">'+escapeHTML(w.kr)+'</div><div class="wordeng" lang="vi">'+escapeHTML(wordMeaning(w))+'</div></div><div><button class="tiny" aria-label="Nghe phát âm" onclick="playVocabularyWord('+i+')">🔊</button> <button class="tiny" onclick="editMeaning('+i+')">Sửa nghĩa</button> <button class="tiny" onclick="removeWord('+i+')">×</button></div></div>').join(''):'<p class="desc">Sổ từ vựng đang trống.</p>';document.getElementById('vocabCount').textContent=words.length+' từ đã lưu'}let aiVoice;
 let openAiVoiceAvailable = false;
 let pendingPronunciation;
 async function playOpenAiPronunciation(text, rate, request, report){
@@ -655,14 +681,14 @@ function playVocabularyWord(index){
 }
 function editMeaning(index){
   const word = words[index];
-  const next = prompt('Nghĩa tiếng Việt của ' + word.kr, word.en);
+  const next = prompt('Nghĩa tiếng Việt của ' + word.kr, wordMeaning(word));
   if (next?.trim()) {
-    word.en = next.trim();
+    word[studyLang+'Meaning'] = next.trim();
     save();
   }
 }
-function removeWord(i){words.splice(i,1);save()}function addCustomWord(){let kr=document.getElementById('newKr').value.trim(),en=document.getElementById('newEn').value.trim();if(!kr||!en)return alert('Hãy nhập từ và nghĩa.');if(!words.some(w=>w.kr===kr))words.push({kr,en});document.getElementById('newKr').value='';document.getElementById('newEn').value='';save()}function exportVocab(){let t='Từ vựng Hàn–Việt của Sophie\n\n'+words.map(w=>w.kr+' — '+w.en).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'}));a.download='tu-vung-han-viet-sophie.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}function renderStats(){document.getElementById('homeWords').textContent=words.length;document.getElementById('homePractices').textContent=practice}
-let reviewIdx=-1;function nextReview(){if(!words.length){document.getElementById('reviewWord').textContent='Hãy lưu vài từ trước.';return}reviewIdx=(reviewIdx+1)%words.length;document.getElementById('reviewWord').textContent=words[reviewIdx].kr;document.getElementById('reviewAnswer').textContent='Bấm Xem nghĩa để kiểm tra.';document.getElementById('reviewProgress').textContent='Từ '+(reviewIdx+1)+' of '+words.length}function revealReview(){if(words[reviewIdx])document.getElementById('reviewAnswer').textContent=words[reviewIdx].en}
+function removeWord(i){words.splice(i,1);save()}function addCustomWord(){let kr=document.getElementById('newKr').value.trim(),en=document.getElementById('newEn').value.trim();if(!kr||!en)return alert('Hãy nhập từ và nghĩa.');if(!words.some(w=>w.kr===kr))words.push({kr,en});document.getElementById('newKr').value='';document.getElementById('newEn').value='';save()}function exportVocab(){let t='Từ vựng Hàn–Việt của Sophie\n\n'+words.map(w=>w.kr+' — '+wordMeaning(w)).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'}));a.download='tu-vung-han-viet-sophie.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}function renderStats(){document.getElementById('homeWords').textContent=words.length;document.getElementById('homePractices').textContent=practice}
+let reviewIdx=-1;function nextReview(){if(!words.length){document.getElementById('reviewWord').textContent='Hãy lưu vài từ trước.';return}reviewIdx=(reviewIdx+1)%words.length;document.getElementById('reviewWord').textContent=words[reviewIdx].kr;document.getElementById('reviewAnswer').textContent='Bấm Xem nghĩa để kiểm tra.';document.getElementById('reviewProgress').textContent='Từ '+(reviewIdx+1)+' of '+words.length}function revealReview(){if(words[reviewIdx])document.getElementById('reviewAnswer').textContent=wordMeaning(words[reviewIdx])}
 resetChat();renderDrama();save();nextReview();
 
 /* Seoulmate continuous conversation mode: no hosted AI keys, browser-only. */
@@ -716,6 +742,13 @@ const originalResetChat=resetChat;
 resetChat=function(){stopAiVoice();stopLivePractice();originalResetChat()};
 const originalSwitchTab=switchTab;
 switchTab=function(t){if(t!=='speaking'){stopAiVoice();if(liveActive)stopLivePractice();}originalSwitchTab(t)};
+if (studyLang==='en'){
+  const labels={'Tiếng Việt':'English','Câu thoại nổi bật':'Featured line','Cụm từ trong clip':'Phrases in this clip','Nghĩa tiếng Việt':'English meaning','Phụ đề Hàn–Việt tự động':'Automatic Korean–English captions','Sổ từ vựng Hàn–Việt':'Korean–English notebook','Từ này có nghĩa gì trong tiếng Việt?':'What does this mean in English?','Gia sư AI Hàn–Việt':'Korean–English AI tutor'};
+  for (const el of document.querySelectorAll('h3,p,label,.eyebrow')){
+    if (!el.children.length && labels[el.textContent]) el.textContent=labels[el.textContent];
+  }
+  document.getElementById('newEn').placeholder='English meaning';
+}
 window.speechSynthesis?.getVoices();
 window.addEventListener('pagehide',()=>{stopSentenceCheck();stopAiVoice();stopDramaCaptions();if(liveActive)stopLivePractice()});
 
@@ -815,7 +848,7 @@ async function tutorReply(input,epoch){
   const valid=()=>tutorRunning && liveEpoch===epoch;
   const level=setting('tutorLevel');
   const [phrase,meaning]=lessonSeeds[level][Math.floor(tutorTurn/3)%lessonSeeds[level].length];
-  const prompt='Teach a Vietnamese learner conversational Korean. Level TOPIK '+level+'. Teaching style in Vietnamese: '+setting('tutorStyle')+'. Be respectful. Reply to the last utterance, correct meaningful errors and invite repetition. Teach one useful phrase proactively every three turns. This lesson target: '+phrase+' ('+meaning+'). '+(dramaRole?'Role-play: '+dramaRole.role:'')+' Return a JSON object with two short strings: ko (natural Korean question or model), vi (Vietnamese explanation).';
+  const prompt='Teach conversational Korean using '+(studyLang==='en'?'English':'Vietnamese')+' for explanations. Level TOPIK '+level+'. Teaching style in Vietnamese: '+setting('tutorStyle')+'. Be respectful. Reply to the last utterance, correct meaningful errors and invite repetition. Teach one useful phrase proactively every three turns. This lesson target: '+phrase+' ('+meaning+'). '+(dramaRole?'Role-play: '+dramaRole.role:'')+' Return a JSON object with two short strings: ko (natural Korean question or model), vi (explanation in '+(studyLang==='en'?'English':'Vietnamese')+').';
   try{
     liveStatus('Gia sư đang trả lời…');
     tutorHistory.push({role:'user',content:input});
@@ -827,13 +860,13 @@ async function tutorReply(input,epoch){
     if(typeof ko!=='string'||typeof vi!=='string')throw Error('format');
     tutorHistory.push({role:'assistant',content:raw});
     if(tutorTurn++%3===0){
-      addBubble('Cụm từ mới',phrase+' — '+meaning);
+      addBubble('Cụm từ mới',phrase+' — '+gloss(meaning));
       if(!words.some(w=>w.kr===phrase)){words.push({kr:phrase,en:meaning});save();}
     }
     addBubble('Gia sư AI',ko+'\n'+vi);
     const profile=setting('voiceStyle')==='M1'?'M1':'F1';
     await voiceLine(ko,'ko',profile,valid,liveStatus);
-    if(valid())await voiceLine(vi,'vi',profile,valid,liveStatus);
+    if(valid())await voiceLine(vi,studyLang,profile,valid,liveStatus);
   }catch{
     if(valid())liveStatus('Gia sư gặp lỗi tạo câu hoặc tải giọng. Bạn vẫn có thể gõ để tiếp tục.');
     return;
