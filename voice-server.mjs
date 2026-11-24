@@ -1,19 +1,6 @@
 import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
 
-const allowedVoices = new Set([
-  "nrHAD53jYEGsNyVoQiv6",
-  "u5V9D9qTP25lmjepYOSC",
-  "3TIJuP53f43TXi08ZJE1",
-  "RU7aSi6lT4uQBXMLgDxK",
-  "Ldr6pbPAWs2LIP4OPHYn",
-  "86GErZIiGJsPO3g7QNxZ",
-  "0oqpliV6dVSr9XomngOW",
-  "iWLjl1zCuqXRkW6494ve",
-  "HrAPO433QYkPmU4F4CHw",
-  "Eoy5HdTKE6FvmPdFQzHN",
-  "vhhJX7dyal9WlYW2UAsj"
-]);
 const port = Number(process.env.SEOULMATE_PORT || 8787);
 const origin = 'http://127.0.0.1:' + port;
 const files = new Map([
@@ -38,7 +25,7 @@ createServer(async (request, response) => {
   const path = new URL(request.url, origin).pathname;
   if (request.method === 'GET' && path === '/voice-status') {
     response.writeHead(200, {'Content-Type': 'application/json', 'Cache-Control': 'no-store'})
-      .end(JSON.stringify({available: Boolean(process.env.OPENAI_API_KEY), eleven: Boolean(process.env.ELEVENLABS_API_KEY)}));
+      .end(JSON.stringify({available: Boolean(process.env.OPENAI_API_KEY)}));
     return;
   }
   if (request.method === 'POST' && path === '/sentence-feedback') {
@@ -94,54 +81,6 @@ createServer(async (request, response) => {
         .end(JSON.stringify({comment}));
     } catch {
       response.writeHead(502).end();
-    }
-    return;
-  }
-  if (request.method === 'POST' && path === '/eleven-speech') {
-    if (request.headers.origin !== origin || request.headers['content-type'] !== 'application/json') {
-      response.writeHead(403).end();
-      return;
-    }
-    const key = process.env.ELEVENLABS_API_KEY;
-    if (!key) {
-      response.writeHead(503).end();
-      return;
-    }
-    try {
-      let body = '';
-      request.setEncoding('utf8');
-      for await (const part of request) {
-        body += part;
-        if (body.length > 4000) {
-          response.writeHead(413).end();
-          return;
-        }
-      }
-      const {text, voice, language} = JSON.parse(body);
-      if (typeof text !== 'string' || text.length > 500 || !text.trim() || !allowedVoices.has(voice) || !['ko','vi','en'].includes(language)) {
-        response.writeHead(400, {'Content-Type':'application/json'}).end(JSON.stringify({code: allowedVoices.has(voice) ? 'invalid_request' : 'unsupported_voice'}));
-        return;
-      }
-      const upstream = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
-        method: 'POST',
-        headers: {'xi-api-key': key, 'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          model_id: 'eleven_flash_v2_5', text, language_code: language
-        }),
-        signal: AbortSignal.timeout(15000)
-      });
-      if (!upstream.ok) {
-        const details = await upstream.json().catch(() => null);
-        const status = details?.detail?.status ?? details?.detail?.code;
-        const code = typeof status === 'string' && /^[a-z][a-z0-9_]{0,70}$/.test(status) ? status : 'provider_error';
-        response.writeHead(upstream.status, {'Content-Type':'application/json','Cache-Control':'no-store'}).end(JSON.stringify({code}));
-        return;
-      }
-      const audio = Buffer.from(await upstream.arrayBuffer());
-      response.writeHead(200, {'Content-Type': 'audio/mpeg', 'Cache-Control': 'no-store'}).end(audio);
-    } catch (error) {
-      const code = error.name === 'TimeoutError' ? 'request_timeout' : 'connection_error';
-      response.writeHead(502, {'Content-Type':'application/json'}).end(JSON.stringify({code}));
     }
     return;
   }
