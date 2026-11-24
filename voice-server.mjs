@@ -157,12 +157,12 @@ createServer(async (request, response) => {
       const form = new FormData();
       form.set('sdp', sdp);
       const requestedLevel = request.headers['x-topik-level'];
-      const level = ['1','2','3'].includes(requestedLevel) ? requestedLevel : '1';
+      const level = ['1','2','3','unlimited'].includes(requestedLevel) ? requestedLevel : '1';
       const tutorInstructions = request.headers['x-study-language'] === 'en' ? instructions.replaceAll('Vietnamese','English') : instructions;
       form.set('session', JSON.stringify({
         type: 'realtime',
         model: 'gpt-realtime',
-        instructions: tutorInstructions + ' Teach TOPIK grade ' + level + ' vocabulary, using one new word in a short example and inviting the learner to use it.',
+        instructions: tutorInstructions + (level === 'unlimited' ? ' Choose vocabulary freely from any TOPIK grade based on the conversation.' : ' Teach TOPIK grade ' + level + ' vocabulary.') + ' Introduce one new word in a short example and invite the learner to use it.',
         audio: {output: {voice: 'marin'}}
       }));
       const result = await fetch('https://api.openai.com/v1/realtime/calls', {
