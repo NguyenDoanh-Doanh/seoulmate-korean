@@ -1,6 +1,19 @@
 import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
 
+const allowedVoices = new Set([
+  "nrHAD53jYEGsNyVoQiv6",
+  "u5V9D9qTP25lmjepYOSC",
+  "3TIJuP53f43TXi08ZJE1",
+  "RU7aSi6lT4uQBXMLgDxK",
+  "Ldr6pbPAWs2LIP4OPHYn",
+  "86GErZIiGJsPO3g7QNxZ",
+  "0oqpliV6dVSr9XomngOW",
+  "iWLjl1zCuqXRkW6494ve",
+  "HrAPO433QYkPmU4F4CHw",
+  "Eoy5HdTKE6FvmPdFQzHN",
+  "vhhJX7dyal9WlYW2UAsj"
+]);
 const port = Number(process.env.SEOULMATE_PORT || 8787);
 const origin = 'http://127.0.0.1:' + port;
 const files = new Map([
@@ -105,7 +118,7 @@ createServer(async (request, response) => {
         }
       }
       const {text, voice, language} = JSON.parse(body);
-      if (typeof text !== 'string' || text.length > 500 || !text.trim() || !["5n5gqmaQi9Ewevrz7bOS","3TIJuP53f43TXi08ZJE1","nrHAD53jYEGsNyVoQiv6","RU7aSi6lT4uQBXMLgDxK"].includes(voice) || !['ko','vi','en'].includes(language)) {
+      if (typeof text !== 'string' || text.length > 500 || !text.trim() || !allowedVoices.has(voice) || !['ko','vi','en'].includes(language)) {
         response.writeHead(400).end();
         return;
       }
