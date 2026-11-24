@@ -119,7 +119,7 @@ createServer(async (request, response) => {
       }
       const {text, voice, language} = JSON.parse(body);
       if (typeof text !== 'string' || text.length > 500 || !text.trim() || !allowedVoices.has(voice) || !['ko','vi','en'].includes(language)) {
-        response.writeHead(400).end();
+        response.writeHead(400, {'Content-Type':'application/json'}).end(JSON.stringify({code: allowedVoices.has(voice) ? 'invalid_request' : 'unsupported_voice'}));
         return;
       }
       const upstream = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
@@ -131,13 +131,17 @@ createServer(async (request, response) => {
         signal: AbortSignal.timeout(15000)
       });
       if (!upstream.ok) {
-        response.writeHead(502).end();
+        const details = await upstream.json().catch(() => null);
+        const status = details?.detail?.status ?? details?.detail?.code;
+        const code = typeof status === 'string' && /^[a-z][a-z0-9_]{0,70}$/.test(status) ? status : 'provider_error';
+        response.writeHead(upstream.status, {'Content-Type':'application/json','Cache-Control':'no-store'}).end(JSON.stringify({code}));
         return;
       }
       const audio = Buffer.from(await upstream.arrayBuffer());
       response.writeHead(200, {'Content-Type': 'audio/mpeg', 'Cache-Control': 'no-store'}).end(audio);
-    } catch {
-      response.writeHead(502).end();
+    } catch (error) {
+      const code = error.name === 'TimeoutError' ? 'request_timeout' : 'connection_error';
+      response.writeHead(502, {'Content-Type':'application/json'}).end(JSON.stringify({code}));
     }
     return;
   }
