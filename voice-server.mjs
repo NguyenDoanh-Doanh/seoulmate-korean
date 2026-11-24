@@ -25,7 +25,7 @@ createServer(async (request, response) => {
   const path = new URL(request.url, origin).pathname;
   if (request.method === 'GET' && path === '/voice-status') {
     response.writeHead(200, {'Content-Type': 'application/json', 'Cache-Control': 'no-store'})
-      .end(JSON.stringify({available: Boolean(process.env.OPENAI_API_KEY)}));
+      .end(JSON.stringify({available: Boolean(process.env.OPENAI_API_KEY), eleven: Boolean(process.env.ELEVENLABS_API_KEY)}));
     return;
   }
   if (request.method === 'POST' && path === '/sentence-feedback') {
@@ -79,6 +79,50 @@ createServer(async (request, response) => {
       }
       response.writeHead(200, {'Content-Type': 'application/json', 'Cache-Control': 'no-store'})
         .end(JSON.stringify({comment}));
+    } catch {
+      response.writeHead(502).end();
+    }
+    return;
+  }
+  if (request.method === 'POST' && path === '/eleven-speech') {
+    if (request.headers.origin !== origin || request.headers['content-type'] !== 'application/json') {
+      response.writeHead(403).end();
+      return;
+    }
+    const key = process.env.ELEVENLABS_API_KEY;
+    if (!key) {
+      response.writeHead(503).end();
+      return;
+    }
+    try {
+      let body = '';
+      request.setEncoding('utf8');
+      for await (const part of request) {
+        body += part;
+        if (body.length > 4000) {
+          response.writeHead(413).end();
+          return;
+        }
+      }
+      const {text, voice, language} = JSON.parse(body);
+      if (typeof text !== 'string' || text.length > 500 || !text.trim() || !["5n5gqmaQi9Ewevrz7bOS","3TIJuP53f43TXi08ZJE1","nrHAD53jYEGsNyVoQiv6","RU7aSi6lT4uQBXMLgDxK"].includes(voice) || !['ko','vi','en'].includes(language)) {
+        response.writeHead(400).end();
+        return;
+      }
+      const upstream = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
+        method: 'POST',
+        headers: {'xi-api-key': key, 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          model_id: 'eleven_flash_v2_5', text, language_code: language
+        }),
+        signal: AbortSignal.timeout(15000)
+      });
+      if (!upstream.ok) {
+        response.writeHead(502).end();
+        return;
+      }
+      const audio = Buffer.from(await upstream.arrayBuffer());
+      response.writeHead(200, {'Content-Type': 'audio/mpeg', 'Cache-Control': 'no-store'}).end(audio);
     } catch {
       response.writeHead(502).end();
     }
