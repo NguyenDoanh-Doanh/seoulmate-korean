@@ -484,7 +484,7 @@ async function reviewSpokenSentence(target, heard, attempt){
   try {
     const result = await fetch('/sentence-feedback', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({target, heard}), signal:request.signal
+      body:JSON.stringify({target, heard, language:studyLang}), signal:request.signal
     });
     if (!result.ok) throw new Error('feedback');
     const {comment} = await result.json();
@@ -629,7 +629,7 @@ async function toggleAiVoice(){
     const offer = await peer.createOffer();
     await peer.setLocalDescription(offer);
     const response = await fetch('/voice-session', {
-      method:'POST', headers:{'Content-Type':'application/sdp'},
+      method:'POST', headers:{'Content-Type':'application/sdp','X-Study-Language':studyLang},
       body:peer.localDescription.sdp, signal:session.abort.signal
     });
     if (!response.ok) throw new Error('session');
@@ -860,7 +860,7 @@ async function tutorReply(input,epoch){
     if(typeof ko!=='string'||typeof vi!=='string')throw Error('format');
     tutorHistory.push({role:'assistant',content:raw});
     if(tutorTurn++%3===0){
-      addBubble('Cụm từ mới',phrase+' — '+gloss(meaning));
+      addBubble(studyLang==='en'?'New phrase':'Cụm từ mới',phrase+' — '+gloss(meaning));
       if(!words.some(w=>w.kr===phrase)){words.push({kr:phrase,en:meaning});save();}
     }
     addBubble('Gia sư AI',ko+'\n'+vi);
