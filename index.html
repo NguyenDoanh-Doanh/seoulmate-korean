@@ -915,8 +915,15 @@ async function voiceLine(text, lang, profile, valid, notify){
   if (profile.startsWith('eleven-')) {
     notify('Đang tạo giọng ElevenLabs…');
     const result = await fetch('/eleven-speech', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text, language:lang, voice:profile.slice(7)})});
-    if (!result.ok) throw Error('ElevenLabs synthesis failed');
-    const buffer = await audioContext.decodeAudioData(await result.arrayBuffer());
+    if (!result.ok) {
+      const data = await result.json().catch(() => null);
+      const code = data?.code || (result.status === 400 ? 'check_local_server_version' : 'request_failed');
+      throw new Error('ElevenLabs · HTTP ' + result.status + ' · ' + code);
+    }
+    const bytes = await result.arrayBuffer();
+    const buffer = await audioContext.decodeAudioData(bytes).catch(() => {
+      throw new Error('ElevenLabs · audio_decode_failed');
+    });
     if (!valid()) return;
     const source = audioContext.createBufferSource();
     voiceSource = source;
@@ -962,7 +969,10 @@ function readSelectedVoice(text, status){
   window.speechSynthesis?.cancel();
   unlockVoice().then(()=>voiceLine(text,'ko',selectedReadingVoice(),()=>job===voiceJob,notify))
     .then(()=>{if(job===voiceJob)notify('Đã đọc xong.');})
-    .catch(()=>notify(studyLang === 'en' ? 'Could not play this voice. Try another voice in the speaking room.' : 'Chưa phát được giọng này. Bạn hãy thử giọng khác trong Phòng luyện nói.'));
+    .catch(error=>{
+      if (job !== voiceJob) return;
+      notify(error.message?.startsWith('ElevenLabs ·') ? error.message : (studyLang === 'en' ? 'Could not play audio. Check the local server and browser audio output.' : 'Chưa phát được âm thanh. Hãy kiểm tra máy chủ trên Mac và đầu ra âm thanh của trình duyệt.'));
+    });
 }
 async function startTutor(){
   if (tutorRunning){stopLivePractice();return;}
