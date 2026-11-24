@@ -11,7 +11,7 @@
 .word-chip{font-size:14px}.word-chip span{display:block;font-size:12px;font-weight:400}
 </style></head><body><div class="app"><aside class="sidebar"><div class="brand">seoul<span>mate.</span> <span style="font-size:14px">♡</span></div><div class="smalllabel">GÓC HỌC TẬP</div><button class="nav active" data-tab="home"><span class="ico">⌂</span> Trang chủ</button><button class="nav" data-tab="speaking"><span class="ico">🎙️</span> Phòng luyện nói</button><button class="nav" data-tab="drama"><span class="ico">🎬</span> Vòng quay K-drama</button><button class="nav" data-tab="vocab"><span class="ico">📖</span> Sổ từ vựng</button><button class="nav" data-tab="review"><span class="ico">✿</span> Ôn tập Chủ nhật</button><div class="sidebottom"><strong>🌷 Cách học của bạn</strong><br>Nhẹ nhàng · Nói tiếng Hàn chậm<br>Sửa lỗi và nhắc lại<br>Ưu tiên phim Hàn lãng mạn ♡</div></aside><main class="main"><div class="top"><div><div class="eyebrow">Một chút tiếng Hàn mỗi ngày ✦</div><h1 class="hello">안녕, Sophie! <span style="color:#e3a6bb">♡</span></h1><div class="sub">Học tiếng Hàn qua từng cuộc trò chuyện.</div></div><label>Ngôn ngữ học / Learn in <select id="studyLanguage" class="field"><option value="vi">Tiếng Việt</option><option value="en">English</option></select></label><div class="avatar">🌸</div></div>
 <section id="home" class="section active"><div class="hero"><div><span class="pill">Góc học tiếng Hàn của bạn</span><h2>Tập nói tiếng Hàn mỗi ngày</h2><p>Hội thoại đời thường và những cảnh phim Hàn lãng mạn.<br>Luyện tập theo nhịp của bạn.</p></div><div class="hero-emoji">🎧</div></div><div class="stats"><div class="stat"><div class="num" id="homeWords">0</div><div class="statname">Từ đã lưu</div></div><div class="stat"><div class="num" id="homePractices">0</div><div class="statname">Lượt trả lời</div></div><div class="stat"><div class="num">CN 22:00</div><div class="statname">Giờ ôn tập</div></div></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Cùng trò chuyện một chút nhé?</h3><div class="desc">Luyện phản xạ bằng tiếng Hàn.</div></div><span style="font-size:27px">💬</span></div><div style="background:#fbf4f7;padding:20px;border-radius:14px;margin:17px 0;font-size:19px;font-weight:800">오늘 하루 어땠어요?</div><div class="desc">Hôm nay bạn thế nào? Hãy thử trả lời bằng tiếng Hàn.</div><button class="primary" style="margin-top:16px" onclick="switchTab('speaking')">Vào phòng luyện nói</button></div><div class="panel"><h3>Cảnh phim hôm nay</h3><div class="desc" style="margin-bottom:12px">Mỗi lượt một cảnh phim ✨</div><div class="dramacard"><div class="dramatag">♡ Phim Hàn lãng mạn</div><div class="dramatitle" id="homeDrama">Lovely Runner</div><div class="dramasub">Clip chính thức · YouTube</div></div><button class="secondary" style="margin-top:13px;width:100%" onclick="switchTab('drama')">Mở vòng quay K-drama</button></div></div></section>
-<section id="speaking" class="section"><div class="hero" style="min-height:150px"><div><span class="pill">Phòng luyện nói</span><h2>Cùng nói tiếng Hàn ♡</h2><p>Nghe, trả lời tự nhiên và tiếp tục hội thoại.</p></div><div class="hero-emoji">🎙️</div></div><div class="panel" id="tutorSettings" style="margin-top:16px"><h3>Gia sư AI Hàn–Việt</h3><div class="dramarow"><label><span id="voiceGenderLabel">Giọng đọc</span><select class="field" id="voiceGender"><option value="female">Nữ</option><option value="male">Nam</option></select></label><label><span id="learningStyleLabel">Phong cách học</span><select class="field" id="tutorStyle"><option value="Nhẹ nhàng">Nhẹ nhàng</option><option value="Nghiêm túc">Nghiêm túc</option><option value="Khắc nghiệt">Khắc nghiệt</option><option value="Cợt nhả">Cợt nhả</option><option value="Kiên nhẫn">Kiên nhẫn</option></select></label><label>Trình độ<select class="field" id="tutorLevel"><option value="1">TOPIK 1</option><option value="2">TOPIK 2</option><option value="3">TOPIK 3</option></select></label><label>Ngôn ngữ bạn nói<select class="field" id="micLang"><option value="ko-KR">Tiếng Hàn</option><option value="en-US">English</option><option value="vi-VN">Tiếng Việt</option></select></label></div><p class="helper">Lần đầu mở gia sư, trình duyệt tải mô hình hội thoại và giọng đọc. Cần WebGPU, bộ nhớ trống và kết nối ổn định.</p><button id="localTutor" class="primary" onclick="startTutor()">Trò chuyện với gia sư AI</button> <button class="secondary" onclick="speak('안녕하세요!')">Nghe thử giọng</button></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Luyện hội thoại</h3><div class="desc">Sơ cấp · Nói chậm · Tiếng Hàn đời thường</div></div><button class="tiny" onclick="resetChat()">Luyện lại</button></div><div class="dramarow" style="align-items:center;gap:10px;margin:12px 0"><button class="primary" id="liveToggle" onclick="toggleLivePractice()" style="min-width:170px">🎙️ Bắt đầu luyện nói</button><button class="secondary" id="aiVoiceToggle" onclick="toggleAiVoice()" hidden>Luyện nói với giọng AI OpenAI</button><span class="helper" id="openAiVoiceLabel" hidden>Giọng đọc do AI OpenAI tạo</span><span id="liveStatus" role="status" aria-live="polite" style="font-size:13px;color:#8d79b1">Sẵn sàng · Mic đang tắt</span></div><div class="notice role-context" id="dramaRole" hidden>
+<section id="speaking" class="section"><div class="hero" style="min-height:150px"><div><span class="pill">Phòng luyện nói</span><h2>Cùng nói tiếng Hàn ♡</h2><p>Nghe, trả lời tự nhiên và tiếp tục hội thoại.</p></div><div class="hero-emoji">🎙️</div></div><div class="panel" id="tutorSettings" style="margin-top:16px"><h3>Gia sư AI Hàn–Việt</h3><div class="dramarow"><label><span id="voiceGenderLabel">Giọng đọc</span><select class="field" id="voiceGender"><option value="female">Nữ</option><option value="male">Nam</option></select></label><label><span id="learningStyleLabel">Phong cách học</span><select class="field" id="tutorStyle"><option value="Tự nhiên">Tự nhiên</option><option value="Nhẹ nhàng">Nhẹ nhàng</option><option value="Nghiêm túc">Nghiêm túc</option><option value="Cợt nhả">Cợt nhả</option></select></label><label>ElevenLabs<select class="field" id="matchedVoice"></select></label><small id="matchedVoiceHint"></small><label>Trình độ<select class="field" id="tutorLevel"><option value="1">TOPIK 1</option><option value="2">TOPIK 2</option><option value="3">TOPIK 3</option></select></label><label>Ngôn ngữ bạn nói<select class="field" id="micLang"><option value="ko-KR">Tiếng Hàn</option><option value="en-US">English</option><option value="vi-VN">Tiếng Việt</option></select></label></div><p class="helper">Lần đầu mở gia sư, trình duyệt tải mô hình hội thoại và giọng đọc. Cần WebGPU, bộ nhớ trống và kết nối ổn định.</p><button id="localTutor" class="primary" onclick="startTutor()">Trò chuyện với gia sư AI</button> <button class="secondary" onclick="speak('안녕하세요!')">Nghe thử giọng</button></div><div class="grid"><div class="panel"><div class="panelhead"><div><h3>Luyện hội thoại</h3><div class="desc">Sơ cấp · Nói chậm · Tiếng Hàn đời thường</div></div><button class="tiny" onclick="resetChat()">Luyện lại</button></div><div class="dramarow" style="align-items:center;gap:10px;margin:12px 0"><button class="primary" id="liveToggle" onclick="toggleLivePractice()" style="min-width:170px">🎙️ Bắt đầu luyện nói</button><button class="secondary" id="aiVoiceToggle" onclick="toggleAiVoice()" hidden>Luyện nói với giọng AI OpenAI</button><span class="helper" id="openAiVoiceLabel" hidden>Giọng đọc do AI OpenAI tạo</span><span id="liveStatus" role="status" aria-live="polite" style="font-size:13px;color:#8d79b1">Sẵn sàng · Mic đang tắt</span></div><div class="notice role-context" id="dramaRole" hidden>
 <p id="dramaRoleContext"></p><button class="tiny" onclick="leaveDramaRoleplay()">Về bài luyện giao tiếp</button>
 </div><div class="chat" id="chat"></div><div class="controls"><button class="round" id="mic" onclick="recordSpeech()" title="Dùng mic">🎤</button><input class="field" id="reply" placeholder="Nói hoặc nhập tiếng Hàn…" onkeydown="if(event.key==='Enter')sendReply()"><button class="primary" onclick="sendReply()">Gửi</button></div><div class="dramarow"><button class="secondary" onclick="playLast()">🔊 Nghe chậm</button><button class="secondary" onclick="explainLast()">📖 Giải thích từng từ</button><button class="secondary" onclick="repeatPrompt()">🔁 Nghe lại</button></div><div class="feedback" id="feedback"></div><div class="helper">Chế độ luyện nói dùng mic và giọng đọc của trình duyệt. Các lượt nhập vai theo kịch bản và kiểm tra mẫu câu cơ bản.</div></div><div class="panel"><h3>Cách luyện nói 🌷</h3><p class="desc">Nghe từng câu hỏi, trả lời, rồi tập nói lại theo gợi ý khi cần.</p><div class="explainbox"><strong>Mẫu câu hôm nay</strong><p style="font:800 19px Nunito;margin:12px 0 5px">저는 ___예요 / 이에요.</p><div class="desc">“Tôi là ___.” Dùng 예요 sau nguyên âm và 이에요 sau phụ âm.</div></div><h3 style="margin-top:25px">Tốc độ nói</h3><div class="desc">Chậm hơn tốc độ tự nhiên</div><input id="speed" type="range" min="0.65" max="1" value="0.82" step="0.01" style="width:100%;accent-color:#d985aa;margin-top:15px"><div class="helper">Giọng đọc phụ thuộc vào giọng tiếng Hàn có sẵn trên thiết bị.</div></div></div></section>
 <section id="drama" class="section">
@@ -644,6 +644,7 @@ async function toggleAiVoice(){
 if (location.hostname === '127.0.0.1') {
   fetch('/voice-status').then(response => response.json()).then(({available, eleven}) => {
     elevenVoiceAvailable = Boolean(eleven);
+    refreshMatchedVoice();
     openAiVoiceAvailable = available;
     if (available) document.getElementById('sentenceAiHint').textContent =
       'OpenAI nhận xét ngữ pháp trên bản chép lời. Kết quả không phải điểm phát âm.';
@@ -758,37 +759,121 @@ const lessonSeeds = {
   '2': [['가 본 적이 있어요.', 'Mình đã từng đến đó.'], ['예약하고 싶어요.', 'Mình muốn đặt chỗ.'], ['어떻게 가면 돼요?', 'Mình đi thế nào để tới đó?']],
   '3': [['제 생각에는', 'Theo mình thì…'], ['그럴 수도 있어요.', 'Cũng có thể như vậy.'], ['시간이 되는 대로', 'Ngay khi có thời gian…']]
 };
-const genderVoices = {
-  female: ['5n5gqmaQi9Ewevrz7bOS','3TIJuP53f43TXi08ZJE1'],
-  male: ['nrHAD53jYEGsNyVoQiv6','RU7aSi6lT4uQBXMLgDxK']
+const voicesByStyle = {
+  "Tự nhiên": {
+    "male": [
+      [
+        "Jinho",
+        "nrHAD53jYEGsNyVoQiv6"
+      ],
+      [
+        "Jij",
+        "u5V9D9qTP25lmjepYOSC"
+      ]
+    ],
+    "female": [
+      [
+        "Jiae",
+        "3TIJuP53f43TXi08ZJE1"
+      ]
+    ]
+  },
+  "Nhẹ nhàng": {
+    "male": [
+      [
+        "Kyle",
+        "RU7aSi6lT4uQBXMLgDxK"
+      ]
+    ],
+    "female": [
+      [
+        "Hani",
+        "Ldr6pbPAWs2LIP4OPHYn"
+      ]
+    ]
+  },
+  "Nghiêm túc": {
+    "male": [
+      [
+        "Hoon",
+        "86GErZIiGJsPO3g7QNxZ"
+      ]
+    ],
+    "female": [
+      [
+        "Jini",
+        "0oqpliV6dVSr9XomngOW"
+      ],
+      [
+        "Jisoo",
+        "iWLjl1zCuqXRkW6494ve"
+      ]
+    ]
+  },
+  "Cợt nhả": {
+    "male": [
+      [
+        "Jun Ho",
+        "HrAPO433QYkPmU4F4CHw"
+      ],
+      [
+        "Park Hyoil",
+        "Eoy5HdTKE6FvmPdFQzHN"
+      ]
+    ],
+    "female": [
+      [
+        "Yeonhee",
+        "vhhJX7dyal9WlYW2UAsj"
+      ]
+    ]
+  }
 };
-const voiceGroups = {'Nhẹ nhàng':1,'Kiên nhẫn':1,'Nghiêm túc':2,'Khắc nghiệt':2,'Cợt nhả':2};
 let elevenVoiceAvailable = false;
+const matchedVoice = document.getElementById('matchedVoice');
+function voicePreferenceKey() {
+  return 'seoulmate-voice-' + setting('voiceGender') + '-' + setting('tutorStyle');
+}
+function refreshMatchedVoice() {
+  const choices = voicesByStyle[setting('tutorStyle')][setting('voiceGender')];
+  matchedVoice.replaceChildren(...choices.map(([name,id]) => new Option(name,id)));
+  const saved = localStorage.getItem(voicePreferenceKey());
+  if (choices.some(([,id]) => id === saved)) matchedVoice.value = saved;
+  document.getElementById('matchedVoiceHint').textContent = elevenVoiceAvailable ? '' :
+    (studyLang === 'en' ? 'Using the on-device voice until ElevenLabs is connected.' : 'Đang dùng giọng AI trên thiết bị cho đến khi kết nối ElevenLabs.');
+}
 function selectedReadingVoice() {
-  const gender = document.getElementById('voiceGender').value;
-  const group = voiceGroups[document.getElementById('tutorStyle').value] || 1;
-  if (elevenVoiceAvailable) return 'eleven-' + genderVoices[gender][group - 1];
-  return (gender === 'male' ? 'M' : 'F') + group;
+  if (elevenVoiceAvailable) return 'eleven-' + matchedVoice.value;
+  const group = ['Tự nhiên','Nhẹ nhàng'].includes(setting('tutorStyle')) ? 1 : 2;
+  return (setting('voiceGender') === 'male' ? 'M' : 'F') + group;
 }
 if (studyLang === 'en') {
   document.getElementById('voiceGenderLabel').textContent = 'Voice';
   document.getElementById('learningStyleLabel').textContent = 'Learning style';
   for (const option of document.getElementById('voiceGender').options)
     option.textContent = option.value === 'male' ? 'Male' : 'Female';
-  const styles = {'Nhẹ nhàng':'Gentle','Kiên nhẫn':'Patient','Nghiêm túc':'Serious','Khắc nghiệt':'Strict','Cợt nhả':'Playful'};
+  const styles = {'Nhẹ nhàng':'Gentle','Tự nhiên':'Natural','Nghiêm túc':'Serious','Cợt nhả':'Playful'};
   for (const option of document.getElementById('tutorStyle').options) option.textContent = styles[option.value];
 }
 const tutorSettings = document.getElementById('tutorSettings');
 for (const select of tutorSettings.querySelectorAll('select')) {
-  const value = localStorage.getItem('seoulmate-'+select.id);
+  if (select === matchedVoice) continue;
+  let value = localStorage.getItem('seoulmate-'+select.id);
+  if (select.id === 'tutorStyle') {
+    if (value === 'Kiên nhẫn') value = 'Nhẹ nhàng';
+    if (value === 'Khắc nghiệt') value = 'Nghiêm túc';
+  }
   if (select.id === 'voiceGender' && !value) {
     const previous = localStorage.getItem('seoulmate-voiceStyle');
-    if (previous === 'M1' || genderVoices.male.some(id => previous === 'eleven-' + id)) select.value = 'male';
+    if (previous === 'M1' || Object.values(voicesByStyle).some(group => group.male.some(([,id]) => previous === 'eleven-' + id))) select.value = 'male';
   }
   if ([...select.options].some(option=>option.value===value && !option.disabled)) select.value=value;
   select.onchange=()=>{localStorage.setItem('seoulmate-'+select.id,select.value);};
 }
 const setting = id => document.getElementById(id).value;
+for (const id of ['voiceGender','tutorStyle']) document.getElementById(id).addEventListener('change',refreshMatchedVoice);
+matchedVoice.onchange = () => localStorage.setItem(voicePreferenceKey(),matchedVoice.value);
+refreshMatchedVoice();
 const voiceRoot = 'https://huggingface.co/Supertone/supertonic-3/resolve/3cadd1ee6394adea1bd021217a0e650ede09a323';
 let voiceReady, tutorEngine, tutorRunning=false, tutorBusy=false, audioContext, voiceSource;
 let voiceJob=0, tutorHistory=[], tutorTurn=0;
